@@ -12,11 +12,11 @@
     <body>
         <h1 class="center">Connect to a server</h1>
         <input id="hostname" type="text" placeholder="Hostname">
-        <input id="port" type="text" placeholder="Port" >
-        <button id="connect" onclick="connect();">Connect</button>
-        <p id="error" class="hidden"><span style="font-weight: bold;">Error: </span>empty</p>
+        <input id="port" type="text" placeholder="Port">
+        <button id="connect">Connect</button>
+        <p id="error" class="hidden"><span style="font-weight: bold;">Error: </span><span id="errorMsg"></span></span></p>
 
         <!-- Run js -->
-        <script src="./index.js"></script>
+        <script src="./renderer.js"></script>
     </body>
 </html>

@@ -6,14 +6,7 @@
  * https://www.electronjs.org/docs/latest/tutorial/sandbox
  */
 // expode node.js functionality
-const { contextBridge, ipcRenderer } = require('electron')
 
-contextBridge.exposeInMainWorld(
-  'electron',
-  {
-    doThing: () => ipcRenderer.send('do-a-thing')
-  }
-)
 
 window.addEventListener('DOMContentLoaded', () => {
   const replaceText = (selector, text) => {
