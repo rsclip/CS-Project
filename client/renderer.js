@@ -10,6 +10,16 @@ var connection = require("./js/connection.js");
 
 document.getElementById("connect").addEventListener("click", connect);
 
+function displayPage(page) {
+    // get all pages within the .page class and hide all
+    document.querySelectorAll(".page").forEach(function(el) {
+        el.style.display = "none";
+    });
+
+    // unhide the current page id
+    document.getElementById(page).style.display = "block";
+}
+
 /**
  * Connect to the server based on
  * a hostname and port (if provided)
@@ -34,4 +44,6 @@ function connect() {
         // display an error
         connection.displayError(result);
     }
+
+    displayPage("idk");
 }

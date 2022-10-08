@@ -1,4 +1,4 @@
-body {
+#connection {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -7,19 +7,19 @@ body {
     background-color: #4a4542;
 }
 
-input, button {
+#connection input, button {
     margin: 20px 0;
 }
 
-input {
+#connection input {
     width: 400px;
 }
 
-button {
+#connection button {
     width: 445px;
 }
 
-#error {
+#connectionError {
     color: #FF5E5E;
     margin: 5px 0;
     text-align: left;
@@ -27,6 +27,6 @@ button {
     transition: 0.2s ease;
 }
 
-#error.hidden {
+#connectionError.hidden {
     opacity: 0;
 }

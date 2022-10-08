@@ -6,15 +6,21 @@
         <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
         <link href="./css/fonts.css" rel="stylesheet">
         <link href="./css/styles.css" rel="stylesheet">
-        <link href="./css/index.css" rel="stylesheet">
+        <link href="./css/connection_screen.css" rel="stylesheet">
         <title>Messaging App - Client</title>
     </head>
     <body>
-        <h1 class="center">Connect to a server</h1>
-        <input id="hostname" type="text" placeholder="Hostname">
-        <input id="port" type="text" placeholder="Port">
-        <button id="connect">Connect</button>
-        <p id="error" class="hidden"><span style="font-weight: bold;">Error: </span><span id="errorMsg"></span></span></p>
+        <div class="page" id="connection">
+            <h1 class="center">Connect to a server</h1>
+            <input id="hostname" type="text" placeholder="Hostname">
+            <input id="port" type="text" placeholder="Port">
+            <button id="connect">Connect</button>
+            <p id="connectionError" class="hidden"><span style="font-weight: bold;">Error: </span><span id="errorMsg"></span></span></p>
+        </div>
+
+        <div class="page" id="idk" style="display: none;">
+            <h1>WOOOOOOOOOOOOOOOOOOOOOOOOOO</h1>
+        </div>
 
         <!-- Run js -->
         <script src="./renderer.js"></script>

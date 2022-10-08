@@ -7,12 +7,14 @@
     "start": "electron ."
   },
   "repository": "https://github.com/Cyclip/CS-Project",
-  "keywords": [
-  ],
+  "keywords": [],
   "author": "Ifaz Ahmed",
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^21.1.0"
   },
-  "content_security_policy": "default-src 'self' style-src 'self' 'unsafe-inline';" 
+  "content_security_policy": "default-src 'self' style-src 'self' 'unsafe-inline';",
+  "dependencies": {
+    "websocket": "^1.0.34"
+  }
 }
