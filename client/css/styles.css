@@ -1,0 +1,134 @@
+/* Main styles to be applied to all pages */
+
+body {
+    background-color: #4a4542;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: white;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* General classes */
+.block {
+    display: block;
+}
+
+.center {
+    text-align: center;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Headers */
+
+h1 {font-size: 5em; margin: 10px 0;}
+h2 {font-size: 3em; margin: 10px 0;}
+h3 {font-size: 2em; margin: 10px 0;}
+h4 {font-size: 1.5em; margin: 10px 0;}
+h5 {font-size: 1.2em; margin: 10px 0;}
+h6 {font-size: 1em; margin: 10px 0;}
+
+/* Links */
+
+a {
+    color: #bda878;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+a:hover {
+    color: #e4bd61;
+}
+
+/* Button */
+
+button {
+    background-color: #bda878;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    transition: 0.2s ease;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #e4bd61;
+}
+
+/* Transparent background button class */
+
+button.transparent {
+    background-color: transparent;
+    color: #bda878;
+    border: 2px solid #bda878;
+}
+
+button.transparent:hover {
+    background-color: #bda878;
+    color: white;
+}
+
+
+/* Inputs */
+
+input {
+    background-color: #4a4542;
+    color: white;
+    border: none;
+    border-bottom: 2px solid #bda87882;
+    padding: 10px 20px;
+    font-size: 1em;
+    transition: 0.2s ease;
+}
+
+input:focus {
+    border-bottom: 2px solid #e4bd61;
+    outline: none;
+}
+
+/* Textarea */
+
+textarea {
+    background-color: #4a4542;
+    color: white;
+    border: none;
+    border-bottom: 2px solid #bda878;
+    padding: 10px 20px;
+    font-size: 1em;
+    transition: 0.2s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+textarea:focus {
+    border-bottom: 2px solid #e4bd61;
+    outline: none;
+}
+
+/* Dropdown */
+
+select {
+    background-color: #4a4542;
+    color: white;
+    border: none;
+    border-bottom: 2px solid #bda878;
+    padding: 10px 20px;
+    font-size: 1em;
+    transition: 0.2s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+select:focus {
+    border-bottom: 2px solid #e4bd61;
+    outline: none;
+}
+

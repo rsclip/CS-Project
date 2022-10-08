@@ -1,0 +1,32 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #4a4542;
+}
+
+input, button {
+    margin: 20px 0;
+}
+
+input {
+    width: 400px;
+}
+
+button {
+    width: 445px;
+}
+
+#error {
+    color: #FF5E5E;
+    margin: 15px 0;
+    text-align: left;
+    width: 445px;
+    transition: 0.2s ease;
+}
+
+#error.hidden {
+    opacity: 0;
+}

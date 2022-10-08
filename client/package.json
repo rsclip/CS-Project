@@ -1,0 +1,18 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "CS Project",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/Cyclip/CS-Project",
+  "keywords": [
+  ],
+  "author": "Ifaz Ahmed",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^21.1.0"
+  },
+  "content_security_policy": "default-src 'self' style-src 'self' 'unsafe-inline';" 
+}
