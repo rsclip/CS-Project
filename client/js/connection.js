@@ -6,7 +6,7 @@ exports.displayError = displayError;
  * @param {string} msg 
  */
 function displayError(msg) {
-    let error = document.getElementById("error");
+    let error = document.getElementById("connectionError");
     let errorMsg = document.getElementById("errorMsg");
 
     error.classList.remove("hidden");

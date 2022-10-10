@@ -65,6 +65,12 @@ button:hover {
     background-color: #e4bd61;
 }
 
+button[disabled] {
+    background-color: #7f6c60;
+    color: #e3cec2;
+    cursor: not-allowed;
+}
+
 /* Transparent background button class */
 
 button.transparent {

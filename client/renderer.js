@@ -1,12 +1,7 @@
-/**
- * This file is loaded via the <script> tag in the index.html file and will
- * be executed in the renderer process for that window. No Node.js APIs are
- * available in this process because `nodeIntegration` is turned off and
- * `contextIsolation` is turned on. Use the contextBridge API in `preload.js`
- * to expose Node.js functionality from the main process.
- */
+'use strict';
 
 var connection = require("./js/connection.js");
+const io = require("socket.io-client");
 
 document.getElementById("connect").addEventListener("click", connect);
 
@@ -28,22 +23,60 @@ function displayPage(page) {
  * @param {string} port
  * @returns {void}
 */
-function connect() {
+async function connect() {
     // get hostname and port
-    let hostname = document.getElementById("hostname").value;
-    let port = document.getElementById("port").value;
+    var hostname = document.getElementById("hostname").value;
+    var port = document.getElementById("port").value;
 
     // if the pair are valid...
-    let [valid, result] = connection.isValid(hostname, port);
+    var [valid, result] = connection.isValid(hostname, port);
     console.log(valid, result);
     if (valid) {
+        // disable button
+        document.getElementById("connect").disabled = true;
+        document.getElementById("connect").innerText = "Connecting...";
+
         // connect to the server
-        testVar = port;
+        await initiateConnection(hostname, port);
+
+        // enable button
+        document.getElementById("connect").disabled = false;
+        document.getElementById("connect").innerText = "Connect";
         
     } else {
         // display an error
         connection.displayError(result);
     }
-
-    displayPage("idk");
 }
+
+
+
+// ======================== CONNECTIONS ======================== //
+
+async function initiateConnection(hostname, port) {
+    // connect to the server
+    var socket = io.connect(`http://${hostname}:${port}`);
+    console.log("Trying to connect to server...");
+
+    // wait until the connection is established
+    // if not, return an error
+    await new Promise((resolve, reject) => {
+        socket.on("connect", function() {
+            console.log("Connected to server!");
+            resolve();
+        });
+
+        socket.on("connect_error", function() {
+            reject("Connection error");
+        });
+    }
+    ).then(() => {
+        // display the main page
+        displayPage("main");
+    }).catch((err) => {
+        // display an error
+        connection.displayError(err + "; check your hostname and port.");
+    });
+}
+
+// ====================== CONNECTIONS END ====================== //
