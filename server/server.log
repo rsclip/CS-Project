@@ -1,0 +1,242 @@
+[20:14:05] INFO: Starting server on localhost:8084
+[20:14:18] DEBUG: [127.0.0.1] Initiated connection
+[20:14:18] INFO: [127.0.0.1] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3KS7u&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:14:18] DEBUG: [127.0.0.1] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3KS7u&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:14:18] INFO: [127.0.0.1] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3KS7u&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:14:18] DEBUG: [127.0.0.1] Initiated connection
+[20:14:19] DEBUG: [127.0.0.1] Initiated connection
+[20:14:19] INFO: [127.0.0.1] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3KSPW&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:14:19] DEBUG: [127.0.0.1] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3KSPW&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:14:19] INFO: [127.0.0.1] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3KSPW&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:14:19] DEBUG: [127.0.0.1] Initiated connection
+[20:14:21] DEBUG: [127.0.0.1] Initiated connection
+[20:14:21] INFO: [127.0.0.1] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3KShQ&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:14:21] DEBUG: [127.0.0.1] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3KShQ&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:14:21] INFO: [127.0.0.1] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3KShQ&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:14:21] DEBUG: [127.0.0.1] Initiated connection
+[20:14:23] DEBUG: [127.0.0.1] Initiated connection
+[20:14:23] INFO: [127.0.0.1] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3KTMY&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:14:23] DEBUG: [127.0.0.1] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3KTMY&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:14:23] INFO: [127.0.0.1] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3KTMY&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:14:23] DEBUG: [127.0.0.1] Initiated connection
+[20:14:28] DEBUG: [127.0.0.1] Initiated connection
+[20:14:28] INFO: [127.0.0.1] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3KUa-&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:14:28] DEBUG: [127.0.0.1] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3KUa-&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:14:28] INFO: [127.0.0.1] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3KUa-&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:14:28] DEBUG: [127.0.0.1] Initiated connection
+[20:21:30] INFO: Starting server on localhost:8084
+[20:21:34] DEBUG: [127.0.0.1:61783] Initiated connection
+[20:21:34] INFO: [127.0.0.1:61783] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3M6PC&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:21:34] DEBUG: [127.0.0.1:61783] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3M6PC&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:21:34] INFO: [127.0.0.1:61783] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3M6PC&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:21:34] DEBUG: [127.0.0.1:61783] Initiated connection
+[20:21:35] DEBUG: [127.0.0.1:61785] Initiated connection
+[20:21:35] INFO: [127.0.0.1:61785] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3M6fF&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:21:35] DEBUG: [127.0.0.1:61785] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3M6fF&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:21:35] INFO: [127.0.0.1:61785] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3M6fF&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:21:35] DEBUG: [127.0.0.1:61785] Initiated connection
+[20:21:36] DEBUG: [127.0.0.1:61787] Initiated connection
+[20:21:36] INFO: [127.0.0.1:61787] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3M6_D&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:21:36] DEBUG: [127.0.0.1:61787] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3M6_D&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:21:36] INFO: [127.0.0.1:61787] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3M6_D&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:21:36] DEBUG: [127.0.0.1:61787] Initiated connection
+[20:21:39] DEBUG: [127.0.0.1:61788] Initiated connection
+[20:21:39] INFO: [127.0.0.1:61788] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3M7lL&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:21:39] DEBUG: [127.0.0.1:61788] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3M7lL&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:21:39] INFO: [127.0.0.1:61788] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3M7lL&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:21:39] DEBUG: [127.0.0.1:61788] Initiated connection
+[20:21:44] DEBUG: [127.0.0.1:61790] Initiated connection
+[20:21:44] INFO: [127.0.0.1:61790] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3M8zb&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:21:44] DEBUG: [127.0.0.1:61790] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3M8zb&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:21:44] INFO: [127.0.0.1:61790] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3M8zb&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:21:44] DEBUG: [127.0.0.1:61790] Initiated connection
+[20:21:50] DEBUG: [127.0.0.1:61792] Initiated connection
+[20:21:50] INFO: [127.0.0.1:61792] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MARD&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:21:50] DEBUG: [127.0.0.1:61792] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MARD&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:21:50] INFO: [127.0.0.1:61792] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MARD&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:21:50] DEBUG: [127.0.0.1:61792] Initiated connection
+[20:21:56] DEBUG: [127.0.0.1:61798] Initiated connection
+[20:21:56] INFO: [127.0.0.1:61798] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MBuy&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:21:56] DEBUG: [127.0.0.1:61798] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MBuy&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:21:56] INFO: [127.0.0.1:61798] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MBuy&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:21:56] DEBUG: [127.0.0.1:61798] Initiated connection
+[20:22:02] DEBUG: [127.0.0.1:61801] Initiated connection
+[20:22:02] INFO: [127.0.0.1:61801] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MDMb&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:02] DEBUG: [127.0.0.1:61801] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MDMb&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:02] INFO: [127.0.0.1:61801] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MDMb&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:02] DEBUG: [127.0.0.1:61801] Initiated connection
+[20:22:08] DEBUG: [127.0.0.1:61802] Initiated connection
+[20:22:08] INFO: [127.0.0.1:61802] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MEqM&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:08] DEBUG: [127.0.0.1:61802] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MEqM&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:08] INFO: [127.0.0.1:61802] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MEqM&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:08] DEBUG: [127.0.0.1:61802] Initiated connection
+[20:22:14] DEBUG: [127.0.0.1:61803] Initiated connection
+[20:22:14] INFO: [127.0.0.1:61803] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MGIA&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:14] DEBUG: [127.0.0.1:61803] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MGIA&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:14] INFO: [127.0.0.1:61803] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MGIA&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:14] DEBUG: [127.0.0.1:61803] Initiated connection
+[20:22:20] DEBUG: [127.0.0.1:61805] Initiated connection
+[20:22:20] INFO: [127.0.0.1:61805] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MHlr&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:20] DEBUG: [127.0.0.1:61805] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MHlr&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:20] INFO: [127.0.0.1:61805] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MHlr&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:20] DEBUG: [127.0.0.1:61805] Initiated connection
+[20:22:26] DEBUG: [127.0.0.1:61806] Initiated connection
+[20:22:26] INFO: [127.0.0.1:61806] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MJDc&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:26] DEBUG: [127.0.0.1:61806] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MJDc&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:26] INFO: [127.0.0.1:61806] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MJDc&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:26] DEBUG: [127.0.0.1:61806] Initiated connection
+[20:22:32] DEBUG: [127.0.0.1:61808] Initiated connection
+[20:22:32] INFO: [127.0.0.1:61808] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MKhU&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:32] DEBUG: [127.0.0.1:61808] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MKhU&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:32] INFO: [127.0.0.1:61808] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MKhU&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:32] DEBUG: [127.0.0.1:61808] Initiated connection
+[20:22:38] DEBUG: [127.0.0.1:61809] Initiated connection
+[20:22:38] INFO: [127.0.0.1:61809] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MM9A&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:38] DEBUG: [127.0.0.1:61809] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MM9A&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:38] INFO: [127.0.0.1:61809] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MM9A&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:38] DEBUG: [127.0.0.1:61809] Initiated connection
+[20:22:44] DEBUG: [127.0.0.1:61816] Initiated connection
+[20:22:44] INFO: [127.0.0.1:61816] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MNc-&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:44] DEBUG: [127.0.0.1:61816] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MNc-&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:44] INFO: [127.0.0.1:61816] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MNc-&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:44] DEBUG: [127.0.0.1:61816] Initiated connection
+[20:22:50] DEBUG: [127.0.0.1:61819] Initiated connection
+[20:22:50] INFO: [127.0.0.1:61819] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MP4o&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:50] DEBUG: [127.0.0.1:61819] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MP4o&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:50] INFO: [127.0.0.1:61819] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MP4o&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:50] DEBUG: [127.0.0.1:61819] Initiated connection
+[20:22:56] DEBUG: [127.0.0.1:61820] Initiated connection
+[20:22:56] INFO: [127.0.0.1:61820] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MQYO&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:56] DEBUG: [127.0.0.1:61820] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MQYO&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:56] INFO: [127.0.0.1:61820] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MQYO&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:22:56] DEBUG: [127.0.0.1:61820] Initiated connection
+[20:23:02] DEBUG: [127.0.0.1:61822] Initiated connection
+[20:23:02] INFO: [127.0.0.1:61822] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MS0C&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:02] DEBUG: [127.0.0.1:61822] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MS0C&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:02] INFO: [127.0.0.1:61822] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MS0C&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:02] DEBUG: [127.0.0.1:61822] Initiated connection
+[20:23:08] DEBUG: [127.0.0.1:61823] Initiated connection
+[20:23:08] INFO: [127.0.0.1:61823] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MTTr&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:08] DEBUG: [127.0.0.1:61823] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MTTr&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:08] INFO: [127.0.0.1:61823] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MTTr&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:08] DEBUG: [127.0.0.1:61823] Initiated connection
+[20:23:14] DEBUG: [127.0.0.1:61825] Initiated connection
+[20:23:14] INFO: [127.0.0.1:61825] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MUxg&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:14] DEBUG: [127.0.0.1:61825] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MUxg&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:14] INFO: [127.0.0.1:61825] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MUxg&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:14] DEBUG: [127.0.0.1:61825] Initiated connection
+[20:23:20] DEBUG: [127.0.0.1:61826] Initiated connection
+[20:23:20] INFO: [127.0.0.1:61826] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MWPT&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:20] DEBUG: [127.0.0.1:61826] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MWPT&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:20] INFO: [127.0.0.1:61826] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MWPT&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:20] DEBUG: [127.0.0.1:61826] Initiated connection
+[20:23:26] DEBUG: [127.0.0.1:61827] Initiated connection
+[20:23:26] INFO: [127.0.0.1:61827] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MXt9&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:26] DEBUG: [127.0.0.1:61827] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MXt9&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:26] INFO: [127.0.0.1:61827] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MXt9&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:26] DEBUG: [127.0.0.1:61827] Initiated connection
+[20:23:32] DEBUG: [127.0.0.1:61828] Initiated connection
+[20:23:32] INFO: [127.0.0.1:61828] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MZKv&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:32] DEBUG: [127.0.0.1:61828] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MZKv&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:32] INFO: [127.0.0.1:61828] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MZKv&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:32] DEBUG: [127.0.0.1:61828] Initiated connection
+[20:23:38] DEBUG: [127.0.0.1:61839] Initiated connection
+[20:23:38] INFO: [127.0.0.1:61839] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3Maoc&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:38] DEBUG: [127.0.0.1:61839] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3Maoc&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:38] INFO: [127.0.0.1:61839] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3Maoc&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:38] DEBUG: [127.0.0.1:61839] Initiated connection
+[20:23:44] DEBUG: [127.0.0.1:61842] Initiated connection
+[20:23:44] INFO: [127.0.0.1:61842] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3McGT&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:44] DEBUG: [127.0.0.1:61842] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3McGT&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:44] INFO: [127.0.0.1:61842] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3McGT&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:44] DEBUG: [127.0.0.1:61842] Initiated connection
+[20:23:50] DEBUG: [127.0.0.1:61844] Initiated connection
+[20:23:50] INFO: [127.0.0.1:61844] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MdkH&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:50] DEBUG: [127.0.0.1:61844] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MdkH&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:50] INFO: [127.0.0.1:61844] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MdkH&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:50] DEBUG: [127.0.0.1:61844] Initiated connection
+[20:23:56] DEBUG: [127.0.0.1:61845] Initiated connection
+[20:23:56] INFO: [127.0.0.1:61845] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MfB_&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:56] DEBUG: [127.0.0.1:61845] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MfB_&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:56] INFO: [127.0.0.1:61845] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MfB_&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:23:56] DEBUG: [127.0.0.1:61845] Initiated connection
+[20:24:01] DEBUG: [127.0.0.1:61846] Initiated connection
+[20:24:01] INFO: [127.0.0.1:61846] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MgQU&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:01] DEBUG: [127.0.0.1:61846] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MgQU&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:01] INFO: [127.0.0.1:61846] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MgQU&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:01] DEBUG: [127.0.0.1:61846] Initiated connection
+[20:24:04] DEBUG: [127.0.0.1:61847] Initiated connection
+[20:24:04] INFO: [127.0.0.1:61847] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3Mh52&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:04] DEBUG: [127.0.0.1:61847] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3Mh52&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:04] INFO: [127.0.0.1:61847] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3Mh52&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:04] DEBUG: [127.0.0.1:61847] Initiated connection
+[20:24:05] DEBUG: [127.0.0.1:61850] Initiated connection
+[20:24:05] INFO: [127.0.0.1:61850] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MhSO&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:05] DEBUG: [127.0.0.1:61850] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MhSO&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:05] INFO: [127.0.0.1:61850] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MhSO&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:05] DEBUG: [127.0.0.1:61850] Initiated connection
+[20:24:07] DEBUG: [127.0.0.1:61851] Initiated connection
+[20:24:07] INFO: [127.0.0.1:61851] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3Mhtu&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:07] DEBUG: [127.0.0.1:61851] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3Mhtu&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:07] INFO: [127.0.0.1:61851] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3Mhtu&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:07] DEBUG: [127.0.0.1:61851] Initiated connection
+[20:24:13] DEBUG: [127.0.0.1:61854] Initiated connection
+[20:24:13] INFO: [127.0.0.1:61854] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MjLh&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:13] DEBUG: [127.0.0.1:61854] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MjLh&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:13] INFO: [127.0.0.1:61854] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MjLh&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:13] DEBUG: [127.0.0.1:61854] Initiated connection
+[20:24:18] DEBUG: [127.0.0.1:61855] Initiated connection
+[20:24:18] INFO: [127.0.0.1:61855] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MkZe&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:18] DEBUG: [127.0.0.1:61855] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MkZe&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:18] INFO: [127.0.0.1:61855] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MkZe&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:18] DEBUG: [127.0.0.1:61855] Initiated connection
+[20:24:24] DEBUG: [127.0.0.1:61856] Initiated connection
+[20:24:24] INFO: [127.0.0.1:61856] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3Mm1X&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:24] DEBUG: [127.0.0.1:61856] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3Mm1X&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:24] INFO: [127.0.0.1:61856] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3Mm1X&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:24] DEBUG: [127.0.0.1:61856] Initiated connection
+[20:24:30] DEBUG: [127.0.0.1:61858] Initiated connection
+[20:24:30] INFO: [127.0.0.1:61858] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MnV7&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:30] DEBUG: [127.0.0.1:61858] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MnV7&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:30] INFO: [127.0.0.1:61858] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MnV7&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:30] DEBUG: [127.0.0.1:61858] Initiated connection
+[20:24:36] DEBUG: [127.0.0.1:61860] Initiated connection
+[20:24:36] INFO: [127.0.0.1:61860] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3Moyz&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:36] DEBUG: [127.0.0.1:61860] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3Moyz&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:36] INFO: [127.0.0.1:61860] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3Moyz&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:36] DEBUG: [127.0.0.1:61860] Initiated connection
+[20:24:42] DEBUG: [127.0.0.1:61868] Initiated connection
+[20:24:42] INFO: [127.0.0.1:61868] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MqQc&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:42] DEBUG: [127.0.0.1:61868] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MqQc&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:42] INFO: [127.0.0.1:61868] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MqQc&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:42] DEBUG: [127.0.0.1:61868] Initiated connection
+[20:24:48] DEBUG: [127.0.0.1:61869] Initiated connection
+[20:24:48] INFO: [127.0.0.1:61869] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MruR&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:48] DEBUG: [127.0.0.1:61869] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MruR&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:48] INFO: [127.0.0.1:61869] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MruR&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:48] DEBUG: [127.0.0.1:61869] Initiated connection
+[20:24:54] DEBUG: [127.0.0.1:61872] Initiated connection
+[20:24:54] INFO: [127.0.0.1:61872] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MtMC&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:54] DEBUG: [127.0.0.1:61872] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MtMC&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:54] INFO: [127.0.0.1:61872] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MtMC&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:24:54] DEBUG: [127.0.0.1:61872] Initiated connection
+[20:25:00] DEBUG: [127.0.0.1:61876] Initiated connection
+[20:25:00] INFO: [127.0.0.1:61876] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3Mupz&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:25:00] DEBUG: [127.0.0.1:61876] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3Mupz&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:25:00] INFO: [127.0.0.1:61876] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3Mupz&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:25:00] DEBUG: [127.0.0.1:61876] Initiated connection
+[20:25:06] DEBUG: [127.0.0.1:61878] Initiated connection
+[20:25:06] INFO: [127.0.0.1:61878] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MwHh&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:25:06] DEBUG: [127.0.0.1:61878] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MwHh&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:25:06] INFO: [127.0.0.1:61878] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MwHh&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:25:06] DEBUG: [127.0.0.1:61878] Initiated connection
+[20:25:12] DEBUG: [127.0.0.1:61882] Initiated connection
+[20:25:12] INFO: [127.0.0.1:61882] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MxlR&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:25:12] DEBUG: [127.0.0.1:61882] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MxlR&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:25:12] INFO: [127.0.0.1:61882] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3MxlR&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:25:12] DEBUG: [127.0.0.1:61882] Initiated connection
+[20:25:17] DEBUG: [127.0.0.1:61885] Initiated connection
+[20:25:17] INFO: [127.0.0.1:61885] (Unencrypted) Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3Mz0y&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:25:17] DEBUG: [127.0.0.1:61885] Received 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3Mz0y&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:25:17] INFO: [127.0.0.1:61885] (Unencrypted) Sent 'b'GET /socket.io/?EIO=4&transport=polling&t=OF3Mz0y&b64=1 HTTP/1.1\r\nUser-Agent: node-XMLHttpRequest\r\nAccept: */*\r\nHost: localhost:8084\r\nConnection: close''
+[20:25:17] DEBUG: [127.0.0.1:61885] Initiated connection

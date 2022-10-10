@@ -58,21 +58,36 @@ async function initiateConnection(hostname, port) {
     var socket = io.connect(`http://${hostname}:${port}`);
     console.log("Trying to connect to server...");
 
+    // wait until the connection is established with promises
+    // if not, return an error with connection.displayError
+    // then send and receive a message from the server
+
     // wait until the connection is established
-    // if not, return an error
     await new Promise((resolve, reject) => {
         socket.on("connect", function() {
             console.log("Connected to server!");
             resolve();
         });
 
-        socket.on("connect_error", function() {
+        socket.on("connect_error", function(err) {
             reject("Connection error");
+            // log error
+            console.log(err);
+            connection.displayError(err + "; check your hostname and port.");
         });
     }
     ).then(() => {
         // display the main page
         displayPage("main");
+
+        // send a message to the server
+        socket.emit("message", "Hello from the client!");
+
+        // wait for a message from the server
+        socket.on("message", function(msg) {
+            console.log(msg);
+        });
+
     }).catch((err) => {
         // display an error
         connection.displayError(err + "; check your hostname and port.");
