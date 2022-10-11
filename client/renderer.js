@@ -1,7 +1,14 @@
 'use strict';
 
-var connection = require("./js/connection.js");
+const connection = require("./js/connection.js");
+const keys = require("./js/keys.js");
 const io = require("socket.io-client");
+
+
+let isConnected = false;
+const { publicKey, privateKey } = keys.getKeyPairs();
+let serverPublicKey = null;
+
 
 document.getElementById("connect").addEventListener("click", connect);
 
@@ -24,14 +31,15 @@ function displayPage(page) {
  * @returns {void}
 */
 async function connect() {
+    console.log("Connect function called");
     // get hostname and port
-    var hostname = document.getElementById("hostname").value;
-    var port = document.getElementById("port").value;
+    let hostname = document.getElementById("hostname").value;
+    let port = document.getElementById("port").value;
 
     // if the pair are valid...
-    var [valid, result] = connection.isValid(hostname, port);
+    let [valid, result] = connection.isValid(hostname, port);
     console.log(valid, result);
-    if (valid) {
+    if (valid && !isConnected && document.getElementById("connect").disabled == false) {
         // disable button
         document.getElementById("connect").disabled = true;
         document.getElementById("connect").innerText = "Connecting...";
@@ -52,45 +60,47 @@ async function connect() {
 
 
 // ======================== CONNECTIONS ======================== //
-
+/** This will initiate a connection to the server.
+ * It works by first trying to connect to the server
+ * and setting up all socket events. Once the connection
+ * is established, it will then send the public key to
+ * the server to be stored.
+ * 
+ * @param {string} hostname
+ * @param {string} port
+ * @returns {void}
+*/
 async function initiateConnection(hostname, port) {
+    console.log("Called initiateConnection");
     // connect to the server
-    var socket = io.connect(`http://${hostname}:${port}`);
+    let socket = io.connect(`http://${hostname}:${port}`);
     console.log("Trying to connect to server...");
 
-    // wait until the connection is established with promises
-    // if not, return an error with connection.displayError
-    // then send and receive a message from the server
+    // on sendPublicKey event
+    socket.on("sendPublicKey", function(data) {
+        console.log("Received public key from server");
+        serverPublicKey = data;
+        console.log(serverPublicKey);
+    });
 
-    // wait until the connection is established
+    // wait until the connection is established and send a message
     await new Promise((resolve, reject) => {
-        socket.on("connect", function() {
+        socket.on("connect", () => {
             console.log("Connected to server!");
+
+            // send our public key to the server
+            socket.emit("sendPublicKey", publicKey);
+        });
+
+        socket.on("disconnect", () => {
+            console.log("Disconnected from server");
             resolve();
         });
 
-        socket.on("connect_error", function(err) {
-            reject("Connection error");
-            // log error
-            console.log(err);
-            connection.displayError(err + "; check your hostname and port.");
-        });
-    }
-    ).then(() => {
-        // display the main page
-        displayPage("main");
-
-        // send a message to the server
-        socket.emit("message", "Hello from the client!");
-
-        // wait for a message from the server
-        socket.on("message", function(msg) {
-            console.log(msg);
-        });
-
     }).catch((err) => {
-        // display an error
+        console.log(err);
         connection.displayError(err + "; check your hostname and port.");
+        reject();
     });
 }
 

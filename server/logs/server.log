@@ -1,0 +1,9 @@
+[22:06:22] (main.py:<module>:73) INFO: Starting server on localhost:8084
+[22:11:43] (main.py:<module>:73) INFO: Starting server on localhost:8084
+[22:16:17] (main.py:<module>:81) INFO: Starting server on localhost:8084
+[22:21:03] (main.py:on_connect:36) INFO: Client naeK3WClWFHbqrROAAAB connected
+[22:21:03] (main.py:on_message:42) INFO: Client naeK3WClWFHbqrROAAAB sent message: message 2
+[22:21:17] (main.py:on_disconnect:39) INFO: Client naeK3WClWFHbqrROAAAB disconnected
+[22:21:40] (main.py:on_connect:36) INFO: Client 04603Uf3sW1dyg5IAAAD connected
+[22:21:40] (main.py:on_message:42) INFO: Client 04603Uf3sW1dyg5IAAAD sent message: message 2
+[22:24:58] (main.py:on_disconnect:39) INFO: Client 04603Uf3sW1dyg5IAAAD disconnected
