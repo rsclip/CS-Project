@@ -19,19 +19,22 @@ function genKeyPair() {
     const privatePath = keyCacheDir + "private.pem";
 
     console.log("Generating new key pair");
-    const { publicKey, privateKey } = crypto.generateKeyPairSync("rsa", {
+    const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
         modulusLength: 4096,
+        // match the public key algorithm (RSA PKCS1_OAEP 4096)
         publicKeyEncoding: {
-            type: "pkcs1",
-            format: "pem"
+            type: 'spki',
+            format: 'pem'
         },
         privateKeyEncoding: {
-            type: "pkcs1",
-            format: "pem",
-            cipher: "aes-256-cbc",
-            passphrase: "cs-messaging-app"
+            type: 'pkcs8',
+            format: 'pem',
+            cipher: 'aes-256-cbc',
+            passphrase: 'cs-messaging-app'
         }
     });
+
+    console.log("Generated public/private key pair");
 
     // delete if pre-existing
     if (fs.existsSync(publicPath)) {
@@ -83,6 +86,11 @@ function decrypt(privateKey, message) {
     return decrypted.toString("utf8");
 }
 
+// Parse a public key from a string
+function parsePublicKey(publicKey) {
+    return crypto.createPublicKey(publicKey);
+}
+
 // ========================================================= //
 
 
@@ -90,3 +98,4 @@ function decrypt(privateKey, message) {
 exports.getKeyPairs = getKeyPairs;
 exports.encrypt = encrypt;
 exports.decrypt = decrypt;
+exports.parsePublicKey = parsePublicKey;

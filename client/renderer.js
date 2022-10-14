@@ -76,16 +76,45 @@ async function initiateConnection(hostname, port) {
     let socket = io.connect(`http://${hostname}:${port}`);
     console.log("Trying to connect to server...");
 
+    socket.on("error", function(err) {
+        console.log(err);
+        connection.displayError(err);
+    });
+
+    socket.on("message", function(data) {
+        console.log("data from server", data);
+        console.log("decrypted", keys.decrypt(privateKey, data));
+    });
+
     // on sendPublicKey event
     socket.on("sendPublicKey", function(data) {
         console.log("Received public key from server");
-        serverPublicKey = data;
+
+        try {
+            // try to parse the public key
+            serverPublicKey = keys.parsePublicKey(data);
+            console.log("Server public key:", serverPublicKey);
+        } catch(err) {
+            // if it fails, display an error
+            connection.displayError("Failed to parse server public key");
+            console.error("Failed to parse server public key:", err);
+        }
+
         console.log(serverPublicKey);
+
+        // try to send a message
+        try {
+            let message = keys.encrypt(serverPublicKey, "Hello from client");
+            socket.emit("message", message);
+            console.log("Sent encrypted message to server", message);
+        } catch (err) {
+            console.log(err);
+        }
     });
 
     // wait until the connection is established and send a message
     await new Promise((resolve, reject) => {
-        socket.on("connect", () => {
+        socket.once("connect", () => {
             console.log("Connected to server!");
 
             // send our public key to the server
@@ -94,6 +123,7 @@ async function initiateConnection(hostname, port) {
 
         socket.on("disconnect", () => {
             console.log("Disconnected from server");
+            socket.disconnect();
             resolve();
         });
 

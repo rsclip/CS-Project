@@ -23,33 +23,32 @@ def get_key_pair() -> Tuple[RsaKey, RsaKey]:
         except FileNotFoundError:
             pass
 
-    private, public = generate_key_pair()
+    public, private = generate_key_pair()
     with open(KEY_DIR + "private.pem", "wb") as f:
         f.write(private.export_key())
     with open(KEY_DIR + "public.pem", "wb") as f:
         f.write(public.export_key())
     
-    return private, public
+    return public, private
 
 
 def generate_key_pair() -> Tuple[RsaKey, RsaKey]:
-    """Generate a key pair"""
+    """Generate a key pair 4096 bits"""
     random_generator = Random.new().read
-    key = RSA.generate(1024, random_generator)
-    private, public = key, key.publickey()
-    return private, public
+    key = RSA.generate(4096, random_generator)
+    public, private = key.publickey(), key
+    return public, private
 
 
-def encrypt(public_key: RsaKey, message: str) -> bytes:
-    """Encrypt a message with a public key"""
-    cipher = PKCS1_OAEP.new(public_key)
-    return cipher.encrypt(message.encode("utf-8"))
+def encrypt(publicKey: RsaKey, message: str) -> bytes:
+    """Encrypt a message"""
+    cipher = PKCS1_OAEP.new(publicKey)
+    return cipher.encrypt(message.encode())
 
-
-def decrypt(private_key: RsaKey, encrypted_message: bytes) -> str:
-    """Decrypt a message with a private key"""
-    cipher = PKCS1_OAEP.new(private_key)
-    return cipher.decrypt(encrypted_message).decode("utf-8")
+def decrypt(privateKey: RsaKey, message: bytes) -> str:
+    """Decrypt a message"""
+    cipher = PKCS1_OAEP.new(privateKey)
+    return cipher.decrypt(message).decode()
 
 
 # Create key directory if not exists
