@@ -1,5 +1,14 @@
 import uuid
 
+def dec(func):
+    def wrapper(self, *args, **kwargs):
+        if args[0] in self.valid:
+            return func(self, *args, **kwargs)
+        else:
+            return 0
+
+    return wrapper
+
 class MAC:
     """Message Authentication Code"""
     def __init__(self):

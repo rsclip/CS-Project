@@ -5,7 +5,7 @@ import base64
 
 import sessions
 import encryption
-from mac import MAC
+from mac import MAC, validate_mac
 
 # =============== CONSTANTS =============== #
 HOST = "localhost"
@@ -50,6 +50,7 @@ class Server:
         self.sio.on("sendPublicKey", self.on_sendPublicKey)
         self.sio.on("uploadMessage", self.on_uploadMessage)
 
+    @validate_mac
     def on_uploadMessage(self, sid, data):
         """When a client sends a message"""
         logging.info(f"[{sid}] Client sent data: {data}")
@@ -99,7 +100,7 @@ class Server:
         """Broadcast an event to all clients"""
         self.sio.emit(event, self.__encrypt(self.sessions.getPublicKey(sid), message))
     
-    def _send_multiple(self, sids, event, message: str):
+    def __send_multiple(self, sids, event, message: str):
         """Send an event to multiple clients"""
         for sid in sids:
             self.__send(sid, event, message)
