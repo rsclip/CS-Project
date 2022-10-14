@@ -5,6 +5,7 @@ import base64
 
 import sessions
 import encryption
+from mac import MAC
 
 # =============== CONSTANTS =============== #
 HOST = "localhost"
@@ -28,10 +29,11 @@ class Server:
         """Initialize the server
         
         Events:
-            connect             When a client connects
-            disconnect          When a client disconnects
-            sendPublicKey       When a client sends their public key
-            message             When a client sends a message
+            connect             On connection initiated event
+            disconnect          On connection closed event
+            sendPublicKey       Public key exchange event
+            sendMac             MAC exchange event
+            uploadMessage       Upload message event
         """
         self.host = HOST
         self.port = PORT
@@ -46,11 +48,9 @@ class Server:
         self.sio.on("connect", self.on_connect)
         self.sio.on("disconnect", self.on_disconnect)
         self.sio.on("sendPublicKey", self.on_sendPublicKey)
-        self.sio.on("message", self.on_message)
+        self.sio.on("uploadMessage", self.on_uploadMessage)
 
-        # Messages queue
-
-    def on_message(self, sid, data):
+    def on_uploadMessage(self, sid, data):
         """When a client sends a message"""
         logging.info(f"[{sid}] Client sent data: {data}")
         # Decrypt the message
@@ -73,8 +73,14 @@ class Server:
     
     def on_sendPublicKey(self, sid, data):
         """When a client sends their public key"""
-        logging.info(f"[{sid}] Client sent data: {data}")
-        self.sessions.setPublicKey(sid, data)
+        logging.info(f"[{sid}] Client sent public key: {data}")
+        self.sessions.setPublicKey(sid, encryption.load_public_key(data))
+
+        # Send the mac to the client
+        mac = MAC()
+        self.sessions.setMac(sid, mac)
+        self.__send(sid, "sendMac", mac.get_mac())
+        logging.info(f"[{sid}] Sent MAC to client")
     
     def __decrypt(self, data: bytes) -> str:
         """Decrypt a message"""
@@ -83,7 +89,7 @@ class Server:
     
     def __encrypt(self, publicKey: encryption.RsaKey, message: str) -> bytes:
         """Encrypt a message"""
-        return encryption.encrypt(publicKey, message).decode()
+        return encryption.encrypt(publicKey, message)
     
     def __send(self, sid, event, message: str):
         """Send an event to a client"""

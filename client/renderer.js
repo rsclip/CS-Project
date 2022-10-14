@@ -8,6 +8,7 @@ const io = require("socket.io-client");
 let isConnected = false;
 const { publicKey, privateKey } = keys.getKeyPairs();
 let serverPublicKey = null;
+let MAC = null;
 
 
 document.getElementById("connect").addEventListener("click", connect);
@@ -76,6 +77,7 @@ async function initiateConnection(hostname, port) {
     let socket = io.connect(`http://${hostname}:${port}`);
     console.log("Trying to connect to server...");
 
+    // ------ UNENCRYPTED EVENTS ------
     socket.on("error", function(err) {
         console.log(err);
         connection.displayError(err);
@@ -98,22 +100,36 @@ async function initiateConnection(hostname, port) {
             // if it fails, display an error
             connection.displayError("Failed to parse server public key");
             console.error("Failed to parse server public key:", err);
+            return;
         }
 
         console.log(serverPublicKey);
 
-        // Connection is fully initiated, so display the accounts page
-        displayPage("accounts");
-        isConnected = true;
+        // Send public key
+        socket.emit("sendPublicKey", publicKey);
+    });
+
+
+    // ------- ENCRYPTED EVENTS ------
+    // on sendMac event
+    socket.on("sendMac", function(data) {
+        console.log("Received MAC from server");
+        try {
+            // try to decrypt the MAC
+            MAC = keys.decrypt(privateKey, data);
+            console.log("MAC:", MAC);
+        } catch(err) {
+            // if it fails, display an error
+            connection.displayError("Failed to decrypt MAC");
+            console.error("Failed to decrypt MAC:", err);
+            return;
+        }
     });
 
     // wait until the connection is established and send a message
     await new Promise((resolve, reject) => {
         socket.once("connect", () => {
             console.log("Connected to server!");
-
-            // send our public key to the server
-            socket.emit("sendPublicKey", publicKey);
         });
 
         socket.on("disconnect", () => {

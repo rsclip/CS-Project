@@ -51,6 +51,11 @@ def decrypt(privateKey: RsaKey, message: bytes) -> str:
     return cipher.decrypt(message).decode()
 
 
+def load_public_key(data: str) -> RsaKey:
+    """Load a public key from a string"""
+    return RSA.import_key(data.encode())
+
+
 # Create key directory if not exists
 if not os.path.exists(KEY_DIR):
     os.mkdir(KEY_DIR)

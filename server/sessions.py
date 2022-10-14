@@ -3,6 +3,7 @@ class Session:
     def __init__(self, sid):
         self.sid = sid
         self.publicKey = None
+        self.mac = None
 
 
 class SessionManager:
@@ -24,6 +25,12 @@ class SessionManager:
 
     def getPublicKey(self, sid):
         return self.sessions[sid].publicKey
+
+    def setMac(self, sid, mac):
+        self.sessions[sid].mac = mac
+    
+    def getMac(self, sid):
+        return self.sessions[sid].mac
 
     def getSessions(self):
         return self.sessions

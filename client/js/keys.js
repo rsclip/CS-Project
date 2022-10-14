@@ -1,8 +1,20 @@
 'use strict';
 
 const fs = require('fs');
+const os = require('os');
 const crypto = require('crypto');
+
 let keyCacheDir = "./keys/";
+
+/**
+ * Get the passphrase for the private key
+ * Includes the username
+ * 
+ * @returns {string}
+*/
+function get_passphrase() {
+    return "cs-messaging-app" + os.userInfo().username;
+}
 
 // check if the key cache directory exists
 if (!fs.existsSync(keyCacheDir)) {
@@ -30,7 +42,7 @@ function genKeyPair() {
             type: 'pkcs8',
             format: 'pem',
             cipher: 'aes-256-cbc',
-            passphrase: 'cs-messaging-app'
+            passphrase: get_passphrase()
         }
     });
 
@@ -82,7 +94,10 @@ function encrypt(publicKey, message) {
 // Decrypt a message using a private key
 function decrypt(privateKey, message) {
     const buffer = Buffer.from(message, "base64");
-    const decrypted = crypto.privateDecrypt(privateKey, buffer);
+    const decrypted = crypto.privateDecrypt({
+        key: privateKey,
+        passphrase: get_passphrase()
+    }, buffer);
     return decrypted.toString("utf8");
 }
 
