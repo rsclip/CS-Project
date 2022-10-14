@@ -1,13 +1,39 @@
 import uuid
+import logging
 
-def dec(func):
-    def wrapper(self, *args, **kwargs):
-        if args[0] in self.valid:
-            return func(self, *args, **kwargs)
-        else:
-            return 0
+def validate_mac(func):
+        """Decorator to validate MAC in an event
+        
+        In every MAC-protected event, the data provided in the `data`
+        parameter must be a dictionary with the following structure:
+        {
+            "mac": "MAC",
+            "data": "DATA"
+        }
+        """
+        def wrapper(self, sid, data):
+            # Validate MAC based on SID
+            try:
+                expectedMac = self.sessions.getMac(sid)
+                providedMac = data["mac"]
 
-    return wrapper
+                if expectedMac.validate_mac(providedMac):
+                    return func(self, sid, data["data"])
+                else:
+                    errorType = "MACInvalid"
+                    errorMsg = f"Invalid MAC (expected '{expectedMac}', got '{providedMac}')"
+            except KeyError:
+                errorType = "MACMissing"
+                errorMsg = "MAC not provided"
+
+            # MAC is invalid
+            logging.error(f"[{sid}] MAC validation failed: {errorMsg}")
+            self.__send(sid, "error", {
+                "type": errorType,
+                "message": errorMsg
+            })
+
+        return wrapper
 
 class MAC:
     """Message Authentication Code"""

@@ -118,6 +118,10 @@ async function initiateConnection(hostname, port) {
             // try to decrypt the MAC
             MAC = keys.decrypt(privateKey, data);
             console.log("MAC:", MAC);
+            
+            // connection fully initiated, display accounts page
+            displayPage("accounts");
+            isConnected = true;
         } catch(err) {
             // if it fails, display an error
             connection.displayError("Failed to decrypt MAC");
@@ -146,3 +150,19 @@ async function initiateConnection(hostname, port) {
 }
 
 // ====================== CONNECTIONS END ====================== //
+
+
+// ======================== ACCOUNTS ======================== //
+document.getElementById("loginTab").addEventListener("click", function() {
+    document.getElementById("loginTab").classList.add("active");
+    document.getElementById("registerTab").classList.remove("active");
+    document.getElementById("login").style.display = "block";
+    document.getElementById("register").style.display = "none";
+});
+
+document.getElementById("registerTab").addEventListener("click", function() {
+    document.getElementById("loginTab").classList.remove("active");
+    document.getElementById("registerTab").classList.add("active");
+    document.getElementById("login").style.display = "none";
+    document.getElementById("register").style.display = "block";
+});

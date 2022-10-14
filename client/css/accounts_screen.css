@@ -1,0 +1,83 @@
+#accounts {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#accounts .tabs {
+    width: calc(100% - 400px);
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#accounts .tabs .tab {
+    width: 250px;
+    height: 50px;
+    display: flex;
+    padding-bottom: 30px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    font-size: 36px;
+    font-family: 'Inter', sans-serif;
+    color: rgba(255, 255, 255, 0.599);
+    transition: 0.2s ease;
+    font-weight: 200;
+}
+
+/* hover if not active */
+#accounts .tabs .tab:not(.active):hover {
+    color: rgba(255, 255, 255, 0.799);
+}
+
+/* active tab */
+#accounts .tabs .tab.active {
+    color: rgba(255, 255, 255, 0.999);
+    font-weight: bold;
+    border-bottom: 1px solid white;
+    cursor: default;
+}
+
+#accounts .tabContent {
+    width: 25%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#accounts .tabContent.hidden {
+    display: none;
+}
+
+#accounts .tabContent input {
+    width: 100%;
+    margin: 20px;
+}
+
+#accounts .tabContent button {
+    width: 100%;
+    margin: 20px;
+}
+
+#loginError {
+    color: #FF5E5E;
+    margin: 5px 0;
+    text-align: left;
+    width: 445px;
+    transition: 0.2s ease;
+}
+
+#loginError.hidden {
+    opacity: 0;
+}
