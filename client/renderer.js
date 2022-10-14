@@ -102,14 +102,9 @@ async function initiateConnection(hostname, port) {
 
         console.log(serverPublicKey);
 
-        // try to send a message
-        try {
-            let message = keys.encrypt(serverPublicKey, "Hello from client");
-            socket.emit("message", message);
-            console.log("Sent encrypted message to server", message);
-        } catch (err) {
-            console.log(err);
-        }
+        // Connection is fully initiated, so display the accounts page
+        displayPage("accounts");
+        isConnected = true;
     });
 
     // wait until the connection is established and send a message

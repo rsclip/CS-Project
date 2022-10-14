@@ -80,6 +80,23 @@ class Server:
         """Decrypt a message"""
         msg = encryption.decrypt(self.privateKey, base64.b64decode(data))
         return msg
+    
+    def __encrypt(self, publicKey: encryption.RsaKey, message: str) -> bytes:
+        """Encrypt a message"""
+        return encryption.encrypt(publicKey, message).decode()
+    
+    def __send(self, sid, event, message: str):
+        """Send an event to a client"""
+        self.sio.emit(event, self.__encrypt(self.sessions.getPublicKey(sid), message), room=sid)
+    
+    def __broadcast(self, sid, event, message: str):
+        """Broadcast an event to all clients"""
+        self.sio.emit(event, self.__encrypt(self.sessions.getPublicKey(sid), message))
+    
+    def _send_multiple(self, sids, event, message: str):
+        """Send an event to multiple clients"""
+        for sid in sids:
+            self.__send(sid, event, message)
 
     def run(self):
         """Run the server"""
