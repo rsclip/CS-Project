@@ -4,6 +4,8 @@ class Session:
         self.sid = sid
         self.publicKey = None
         self.mac = None
+        self.authenticated = False
+        self.username = None
 
 
 class SessionManager:
@@ -34,3 +36,14 @@ class SessionManager:
 
     def getSessions(self):
         return self.sessions
+
+    def isAuthenticated(self, sid):
+        return self.sessions[sid].authenticated
+
+    def authenticate(self, sid, username):
+        self.sessions[sid].authenticated = True
+        self.sessions[sid].username = username
+    
+    def deauthenticate(self, sid):
+        self.sessions[sid].authenticated = False
+        self.sessions[sid].username = None

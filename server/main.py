@@ -90,6 +90,8 @@ class Server:
                 "message": "Account exists"
             })
             logging.info(f"[{sid}] Account exists")
+
+            self.sessions.authenticate(sid, username)
     
     @validate_mac
     def on_register(self, sid, data):
@@ -123,6 +125,8 @@ class Server:
                 "message": "Account created"
             })
             logging.info(f"[{sid}] Account created")
+
+            self.sessions.authenticate(sid, username)
 
     @validate_mac
     def on_uploadMessage(self, sid, data):

@@ -7,11 +7,12 @@
         <link href="./css/fonts.css" rel="stylesheet">
         <link href="./css/connection_screen.css" rel="stylesheet">
         <link href="./css/accounts_screen.css" rel="stylesheet">
+        <link href="./css/chat_screen.css" rel="stylesheet">
         <link href="./css/styles.css" rel="stylesheet">
         <title>Messaging App - Client</title>
     </head>
     <body>
-        <div class="page" id="connection">
+        <div class="page hidden" id="connection">
             <h1 class="center">Connect to a server</h1>
             <input id="hostname" type="text" placeholder="Hostname" value="localhost">
             <input id="port" type="text" placeholder="Port" value="8084">
@@ -39,6 +40,15 @@
             </div>
 
             <p id="loginError" class="hidden"><span style="font-weight: bold;">Error: </span><span id="loginErrorMsg"></span></span></p>
+        </div>
+
+        <div class="page" id="chat">
+            <div class="accountsBar">
+                <div class="accountInfo">
+                    <div id="profilePicture"></div>
+                    <div class="username">Logged in as <span id="username">Username</span></div>
+                </div>
+            </div>
         </div>
 
         <!-- Run js -->
