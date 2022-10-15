@@ -141,9 +141,9 @@ async function initiateConnection(hostname, port) {
             // Check if successful or not
             // Format: {success: true/false, message: "message"}
             if (decrypted.success) {
-                // if successful, display accounts page
+                // if successful, display chat page
                 console.log("Login successful");
-                displayPage("accounts");
+                displayPage("chat");
             } else {
                 // if not, display an error
                 console.log("Login failed: ", decrypted.message);
@@ -153,6 +153,33 @@ async function initiateConnection(hostname, port) {
             // if it fails, display an error
             connection.displayError("Failed to decrypt login data");
             console.error("Failed to decrypt login data:", err);
+            return;
+        }
+    });
+
+    // on register event
+    socket.on("register", function(data) {
+        console.log("Received register data from server");
+        try {
+            // try to decrypt the data
+            let decrypted = keys.decryptObject(privateKey, data);
+            console.log(decrypted);
+
+            // Check if successful or not
+            // Format: {success: true/false, message: "message"}
+            if (decrypted.success) {
+                // if successful, display chat page
+                console.log("Register successful");
+                displayPage("chat");
+            } else {
+                // if not, display an error
+                console.log("Register failed: ", decrypted.message);
+                accounts.displayError(decrypted.message);
+            }
+        } catch(err) {
+            // if it fails, display an error
+            connection.displayError("Failed to decrypt register data");
+            console.error("Failed to decrypt register data:", err);
             return;
         }
     });
@@ -196,8 +223,8 @@ document.getElementById("registerTab").addEventListener("click", function() {
 });
 
 document.getElementById("submitLogin").addEventListener("click", function(e) {
-    let username = document.getElementById("username").value;
-    let password = document.getElementById("password").value;
+    let username = document.getElementById("usernameLogin").value;
+    let password = document.getElementById("passwordLogin").value;
 
     // Get encrypted payload to send
     let payload = keys.encryptObject(
@@ -215,4 +242,33 @@ document.getElementById("submitLogin").addEventListener("click", function(e) {
 
     // Send payload
     socket.emit("login", payload);
+});
+
+document.getElementById("submitRegister").addEventListener("click", function(e) {
+    let username = document.getElementById("usernameRegister").value;
+    let password = document.getElementById("passwordRegister").value;
+    let confirmPassword = document.getElementById("confirmPassword").value;
+
+    // Check if passwords match
+    if (password !== confirmPassword) {
+        accounts.displayError("Passwords do not match");
+        return;
+    }
+
+    // Get encrypted payload to send
+    let payload = keys.encryptObject(
+        serverPublicKey,
+        {
+            MAC: MAC,
+            data: {
+                username: username,
+                password: password
+            }
+        }
+    );
+
+    console.log("Sending register data to server", payload);
+
+    // Send payload
+    socket.emit("register", payload);
 });
