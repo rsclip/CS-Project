@@ -37,6 +37,7 @@ class Server:
             sendPublicKey       Public key exchange event
             sendMac             MAC exchange event
             login               Login event
+            register            Register event
             uploadMessage       Upload message event
         """
         self.host = HOST
@@ -53,6 +54,7 @@ class Server:
         self.sio.on("disconnect", self.on_disconnect)
         self.sio.on("sendPublicKey", self.on_sendPublicKey)
         self.sio.on("login", self.on_login)
+        self.sio.on("register", self.on_register)
         self.sio.on("uploadMessage", self.on_uploadMessage)
 
     @validate_mac
@@ -72,7 +74,7 @@ class Server:
         username = data["username"]
         password = sha512(data["password"].encode()).hexdigest()
 
-        account = accounts.account_exists(username, password)
+        account = accounts.get_account(username, password)
 
         if account is None:
             # Account does not exist
@@ -88,6 +90,39 @@ class Server:
                 "message": "Account exists"
             })
             logging.info(f"[{sid}] Account exists")
+    
+    @validate_mac
+    def on_register(self, sid, data):
+        """Register request event
+        Data parsed will be in the format:
+        {
+            "username": "username",
+            "password": "password",
+        }
+
+        (MAC validation requires the data to be in this format)
+        """
+        logging.info(f"[{sid}] Client sent register request: {data}")
+
+        # Query to see if username is taken
+        username = data["username"]
+        password = sha512(data["password"].encode()).hexdigest()
+
+        if accounts.username_exists(username):
+            # Username is taken
+            self.send(sid, "register", {
+                "success": False,
+                "message": "Username is taken"
+            })
+            logging.info(f"[{sid}] Username is taken")
+        else:
+            # Username is not taken
+            accounts.create_account(username, password)
+            self.send(sid, "register", {
+                "success": True,
+                "message": "Account created"
+            })
+            logging.info(f"[{sid}] Account created")
 
     @validate_mac
     def on_uploadMessage(self, sid, data):
