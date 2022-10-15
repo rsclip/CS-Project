@@ -83,6 +83,16 @@ img.profilePicture {
     transition: 0.2s ease;
 }
 
+#onlineUsersList .onlineUser.active {
+    background-color: #4E4946;
+    cursor: default;
+}
+
+#onlineUsersList .onlineUser.active .userDetails {
+    font-weight: 400;
+    margin-left: 12px;
+}
+
 #onlineUsersList .onlineUser .userDetails {
     transition: 0.2s ease;
     font-weight: 200;
@@ -95,11 +105,103 @@ img.profilePicture {
     background-color: #393635;
 }
 
-#onlineUsersList .onlineUser:hover {
-    background-color: #4E4946;
+#onlineUsersList .onlineUser:not(.active):hover {
+    background-color: #443e3b;
 }
 
-#onlineUsersList .onlineUser:hover .userDetails {
-    margin-left: 10px;
+#onlineUsersList .onlineUser:not(.active):hover .userDetails {
+    margin-left: 6px;
     font-weight: 400;
+}
+
+#conversation {
+    display: flex;
+    flex-direction: column;
+}
+
+#conversation .convoLabel {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    font-weight: 400;
+    font-size: 28px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.141);
+}
+
+#currentUser {
+    font-weight: 600;
+}
+
+.overlay {
+    position: relative;
+}
+
+.overlay::before {
+    background: linear-gradient(0deg, rgba(74,69,66,0) 90%, rgba(74,69,66,1) 100%);
+    content: "\00a0";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.chatLog {
+    width: 100%;
+    height: calc(100% - 60px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    box-sizing: border-box;
+    transition: 0.2s ease;
+}
+
+.chatLog .messages {
+    padding: 20px;
+    transition: 0.2s ease;
+}
+
+.chatLog .messages .message {
+    width: 100%;
+    margin: 10px 0;
+    transition: 0.2s ease;
+}
+
+.chatLog .messages .message .messageContent {
+    padding: 10px 20px;
+    border-radius: 24px;
+    font-size: 16px;
+    font-weight: 400;
+    display: inline-block;
+    max-width: 50%;
+    width: auto;
+    transition: 0.2s ease;
+}
+
+.chatLog .messages .message.incoming .messageContent {
+    background-color: #5E5652;
+}
+
+.chatLog .messages .message.outgoing {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.chatLog .messages .message.outgoing .messageContent {
+    background-color: #836F48;
+    text-align: right;
+}
+
+.chatLog .messages .message.deleted .messageContent::before {
+    content: "Deleted message";
+}
+
+.chatLog .messages .message.deleted .messageContent {
+    background-color: transparent;
+    border: 2px solid #834848;
+    border-radius: 24px;
+    color: #C07A7A;
+}
+
+.chatLog .messages .message:hover {
+    background-color: rgba(253, 253, 253, 0.01);
 }
