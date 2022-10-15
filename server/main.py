@@ -2,10 +2,13 @@ import socketio
 import eventlet
 import logging
 import base64
+import json
+from hashlib import sha512
 
 import sessions
 import encryption
 from mac import MAC, validate_mac
+import accounts
 
 # =============== CONSTANTS =============== #
 HOST = "localhost"
@@ -33,6 +36,7 @@ class Server:
             disconnect          On connection closed event
             sendPublicKey       Public key exchange event
             sendMac             MAC exchange event
+            login               Login event
             uploadMessage       Upload message event
         """
         self.host = HOST
@@ -48,14 +52,49 @@ class Server:
         self.sio.on("connect", self.on_connect)
         self.sio.on("disconnect", self.on_disconnect)
         self.sio.on("sendPublicKey", self.on_sendPublicKey)
+        self.sio.on("login", self.on_login)
         self.sio.on("uploadMessage", self.on_uploadMessage)
+
+    @validate_mac
+    def on_login(self, sid, data):
+        """Login request event
+        Data parsed will be in the format:
+        {
+            "username": "username",
+            "password": "password",
+        }
+
+        (MAC validation requires the data to be in this format)
+        """
+        logging.info(f"[{sid}] Client sent login request: {data}")
+
+        # Query database for user
+        username = data["username"]
+        password = sha512(data["password"].encode()).hexdigest()
+
+        account = accounts.account_exists(username, password)
+
+        if account is None:
+            # Account does not exist
+            self.send(sid, "login", {
+                "success": False,
+                "message": "Account does not exist"
+            })
+            logging.info(f"[{sid}] Account does not exist")
+        else:
+            # Account exists
+            self.send(sid, "login", {
+                "success": True,
+                "message": "Account exists"
+            })
+            logging.info(f"[{sid}] Account exists")
 
     @validate_mac
     def on_uploadMessage(self, sid, data):
         """When a client sends a message"""
         logging.info(f"[{sid}] Client sent data: {data}")
         # Decrypt the message
-        message = self.__decrypt(data)
+        message = self.decrypt(data)
         logging.info(f"[{sid}] Decrypted message: {message}")
 
     def on_connect(self, sid, environ):
@@ -80,30 +119,33 @@ class Server:
         # Send the mac to the client
         mac = MAC()
         self.sessions.setMac(sid, mac)
-        self.__send(sid, "sendMac", mac.get_mac())
+        self.send(sid, "sendMac", mac.get_mac())
         logging.info(f"[{sid}] Sent MAC to client")
     
-    def __decrypt(self, data: bytes) -> str:
+    def decrypt(self, data: bytes) -> str:
         """Decrypt a message"""
         msg = encryption.decrypt(self.privateKey, base64.b64decode(data))
         return msg
     
-    def __encrypt(self, publicKey: encryption.RsaKey, message: str) -> bytes:
+    def encrypt(self, publicKey: encryption.RsaKey, message: str) -> bytes:
         """Encrypt a message"""
+        if isinstance(message, dict):
+            message = json.dumps(message)
+        
         return encryption.encrypt(publicKey, message)
     
-    def __send(self, sid, event, message: str):
+    def send(self, sid, event, message: str):
         """Send an event to a client"""
-        self.sio.emit(event, self.__encrypt(self.sessions.getPublicKey(sid), message), room=sid)
+        self.sio.emit(event, self.encrypt(self.sessions.getPublicKey(sid), message), room=sid)
     
-    def __broadcast(self, sid, event, message: str):
+    def broadcast(self, sid, event, message: str):
         """Broadcast an event to all clients"""
-        self.sio.emit(event, self.__encrypt(self.sessions.getPublicKey(sid), message))
+        self.sio.emit(event, self.encrypt(self.sessions.getPublicKey(sid), message))
     
-    def __send_multiple(self, sids, event, message: str):
+    def send_multiple(self, sids, event, message: str):
         """Send an event to multiple clients"""
         for sid in sids:
-            self.__send(sid, event, message)
+            self.send(sid, event, message)
 
     def run(self):
         """Run the server"""

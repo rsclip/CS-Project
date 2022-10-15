@@ -1,6 +1,7 @@
 'use strict';
 
 const connection = require("./js/connection.js");
+const accounts = require("./js/accounts.js");
 const keys = require("./js/keys.js");
 const io = require("socket.io-client");
 
@@ -9,6 +10,7 @@ let isConnected = false;
 const { publicKey, privateKey } = keys.getKeyPairs();
 let serverPublicKey = null;
 let MAC = null;
+let socket = null;
 
 
 document.getElementById("connect").addEventListener("click", connect);
@@ -16,11 +18,11 @@ document.getElementById("connect").addEventListener("click", connect);
 function displayPage(page) {
     // get all pages within the .page class and hide all
     document.querySelectorAll(".page").forEach(function(el) {
-        el.style.display = "none";
+        el.classList.add("hidden");
     });
 
     // unhide the current page id
-    document.getElementById(page).style.display = "block";
+    document.getElementById(page).classList.remove("hidden");
 }
 
 /**
@@ -58,8 +60,6 @@ async function connect() {
     }
 }
 
-
-
 // ======================== CONNECTIONS ======================== //
 /** This will initiate a connection to the server.
  * It works by first trying to connect to the server
@@ -74,7 +74,7 @@ async function connect() {
 async function initiateConnection(hostname, port) {
     console.log("Called initiateConnection");
     // connect to the server
-    let socket = io.connect(`http://${hostname}:${port}`);
+    socket = io.connect(`http://${hostname}:${port}`);
     console.log("Trying to connect to server...");
 
     // ------ UNENCRYPTED EVENTS ------
@@ -130,6 +130,33 @@ async function initiateConnection(hostname, port) {
         }
     });
 
+    // on login event
+    socket.on("login", function(data) {
+        console.log("Received login data from server");
+        try {
+            // try to decrypt the data
+            let decrypted = keys.decryptObject(privateKey, data);
+            console.log(decrypted);
+
+            // Check if successful or not
+            // Format: {success: true/false, message: "message"}
+            if (decrypted.success) {
+                // if successful, display accounts page
+                console.log("Login successful");
+                displayPage("accounts");
+            } else {
+                // if not, display an error
+                console.log("Login failed: ", decrypted.message);
+                accounts.displayError(decrypted.message);
+            }
+        } catch(err) {
+            // if it fails, display an error
+            connection.displayError("Failed to decrypt login data");
+            console.error("Failed to decrypt login data:", err);
+            return;
+        }
+    });
+
     // wait until the connection is established and send a message
     await new Promise((resolve, reject) => {
         socket.once("connect", () => {
@@ -139,6 +166,7 @@ async function initiateConnection(hostname, port) {
         socket.on("disconnect", () => {
             console.log("Disconnected from server");
             socket.disconnect();
+            displayPage("connection");
             resolve();
         });
 
@@ -156,13 +184,35 @@ async function initiateConnection(hostname, port) {
 document.getElementById("loginTab").addEventListener("click", function() {
     document.getElementById("loginTab").classList.add("active");
     document.getElementById("registerTab").classList.remove("active");
-    document.getElementById("login").style.display = "block";
-    document.getElementById("register").style.display = "none";
+    document.getElementById("login").classList.remove("hidden");
+    document.getElementById("register").classList.add("hidden");
 });
 
 document.getElementById("registerTab").addEventListener("click", function() {
     document.getElementById("loginTab").classList.remove("active");
     document.getElementById("registerTab").classList.add("active");
-    document.getElementById("login").style.display = "none";
-    document.getElementById("register").style.display = "block";
+    document.getElementById("login").classList.add("hidden");
+    document.getElementById("register").classList.remove("hidden");
+});
+
+document.getElementById("submitLogin").addEventListener("click", function(e) {
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    // Get encrypted payload to send
+    let payload = keys.encryptObject(
+        serverPublicKey,
+        {
+            MAC: MAC,
+            data: {
+                username: username,
+                password: password
+            }
+        }
+    );
+
+    console.log("Sending login data to server", payload);
+
+    // Send payload
+    socket.emit("login", payload);
 });

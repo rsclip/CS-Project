@@ -91,6 +91,11 @@ function encrypt(publicKey, message) {
     return encrypted.toString("base64");
 }
 
+// Encrypt an object using a public key
+function encryptObject(publicKey, object) {
+    return encrypt(publicKey, JSON.stringify(object));
+}
+
 // Decrypt a message using a private key
 function decrypt(privateKey, message) {
     const buffer = Buffer.from(message, "base64");
@@ -99,6 +104,11 @@ function decrypt(privateKey, message) {
         passphrase: get_passphrase()
     }, buffer);
     return decrypted.toString("utf8");
+}
+
+// Decrypt an object using a private key
+function decryptObject(privateKey, object) {
+    return JSON.parse(decrypt(privateKey, object));
 }
 
 // Parse a public key from a string
@@ -114,3 +124,5 @@ exports.getKeyPairs = getKeyPairs;
 exports.encrypt = encrypt;
 exports.decrypt = decrypt;
 exports.parsePublicKey = parsePublicKey;
+exports.encryptObject = encryptObject;
+exports.decryptObject = decryptObject;

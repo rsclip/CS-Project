@@ -5,13 +5,13 @@
         <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
         <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
         <link href="./css/fonts.css" rel="stylesheet">
-        <link href="./css/styles.css" rel="stylesheet">
         <link href="./css/connection_screen.css" rel="stylesheet">
         <link href="./css/accounts_screen.css" rel="stylesheet">
+        <link href="./css/styles.css" rel="stylesheet">
         <title>Messaging App - Client</title>
     </head>
     <body>
-        <div class="page" id="connection" style="display: none;">
+        <div class="page" id="connection">
             <h1 class="center">Connect to a server</h1>
             <input id="hostname" type="text" placeholder="Hostname" value="localhost">
             <input id="port" type="text" placeholder="Port" value="8084">
@@ -19,7 +19,7 @@
             <p id="connectionError" class="hidden"><span style="font-weight: bold;">Error: </span><span id="errorMsg"></span></span></p>
         </div>
 
-        <div class="page" id="accounts">
+        <div class="page hidden" id="accounts">
             <div class="tabs">
                 <button class="tab active" id="loginTab">Login</button>
                 <button class="tab" id="registerTab">Register</button>
@@ -28,14 +28,14 @@
             <div id="login" class="tabContent">
                 <input id="username" type="text" placeholder="Username">
                 <input id="password" type="password" placeholder="Password">
-                <button id="submit">Login</button>
+                <button id="submitLogin">Login</button>
             </div>
 
             <div id="register" class="tabContent hidden">
                 <input id="username" type="text" placeholder="Username">
                 <input id="password" type="password" placeholder="Password">
                 <input id="confirmPassword" type="password" placeholder="Confirm Password">
-                <button id="submit">Register</button>
+                <button id="submitRegister">Register</button>
             </div>
 
             <p id="loginError" class="hidden"><span style="font-weight: bold;">Error: </span><span id="loginErrorMsg"></span></span></p>

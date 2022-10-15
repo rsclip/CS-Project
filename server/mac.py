@@ -1,5 +1,6 @@
 import uuid
 import logging
+import json
 
 def validate_mac(func):
         """Decorator to validate MAC in an event
@@ -12,10 +13,15 @@ def validate_mac(func):
         }
         """
         def wrapper(self, sid, data):
+            # Decrypt data
+            data = json.loads(self.decrypt(data))
+
+            print(data)
+
             # Validate MAC based on SID
             try:
                 expectedMac = self.sessions.getMac(sid)
-                providedMac = data["mac"]
+                providedMac = data["MAC"]
 
                 if expectedMac.validate_mac(providedMac):
                     return func(self, sid, data["data"])
@@ -28,7 +34,7 @@ def validate_mac(func):
 
             # MAC is invalid
             logging.error(f"[{sid}] MAC validation failed: {errorMsg}")
-            self.__send(sid, "error", {
+            self.send(sid, "error", {
                 "type": errorType,
                 "message": errorMsg
             })
@@ -43,7 +49,7 @@ class MAC:
     def get_mac(self):
         return self.mac
     
-    def check(self, mac):
+    def validate_mac(self, mac):
         return mac == self.mac
 
     def __gen_mac(self):
