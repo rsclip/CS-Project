@@ -1,6 +1,6 @@
 /* Main styles to be applied to all pages */
 
-body {
+html, body {
     background-color: #4A4542;
     font-family: 'Inter', sans-serif;
     font-size: 14px;
@@ -9,7 +9,6 @@ body {
     padding: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
 }
 
 /* General classes */
@@ -141,9 +140,11 @@ select:focus {
 /* Pages */
 
 .page {
-    position: fixed;
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
 }
 
 .page.hidden {

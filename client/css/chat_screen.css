@@ -1,19 +1,24 @@
 #chat {
+    /* Fills the entire screen
+     * Splits into 2 columns (60px for bar, rest for chat)
+     * Prevent each column's height from overflowing */
+    
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    width: 100%;
 }
 
 #chat .accountsBar {
     background-color: #2E2A29;
     width: 100%;
     height: 60px;
-    padding: 8px 0;
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex: 1;
 }
 
 #chat .accountsBar .accountInfo {
@@ -48,16 +53,20 @@ img.profilePicture {
 #chat .grid {
     display: grid;
     grid-template-columns: 1fr 3fr;
-    height: calc(100% - 60px);
+    grid-auto-rows: 1fr;
+    height: 100%;
+    width: 100%;
+    max-height: 100%;
+    max-width: 100%;
 }
 
 .pane {
-    height: 100%;
-    width: 100%;
+    max-height: 100vh;
 }
 
 #onlineUsers {
     background-color: #3E3A37;
+    overflow-y: scroll;
 }
 
 #onlineUsers .onlineUserLabel {
@@ -71,7 +80,6 @@ img.profilePicture {
 
 #onlineUsersList {
     height: calc(100% - 40px);
-    overflow-y: auto;
 }
 
 #onlineUsersList .onlineUser {
@@ -117,10 +125,13 @@ img.profilePicture {
 #conversation {
     display: flex;
     flex-direction: column;
+    position: relative;
+    width: 100%;
 }
 
 #conversation .convoLabel {
     width: 100%;
+    margin: 0;
     box-sizing: border-box;
     padding: 10px 20px;
     font-weight: 400;
@@ -144,64 +155,31 @@ img.profilePicture {
     width: 100%;
 }
 
-.chatLog {
+#conversation .chatLog {
+    background-color: red;
     width: 100%;
-    height: calc(100% - 60px);
-    overflow-y: auto;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 60px;
+}
+
+#conversation .chatLog .messages {
+    background-color: blue;
+    overflow-y: scroll;
     display: flex;
-    flex-direction: column;
-    justify-content: end;
+    flex-direction: column-reverse;
+    padding: 10px;
     box-sizing: border-box;
-    transition: 0.2s ease;
+    max-height: 100%;
 }
 
-.chatLog .messages {
-    padding: 20px;
-    transition: 0.2s ease;
+#conversation .chatLog .messageBox {
+    background-color: green;
 }
 
-.chatLog .messages .message {
-    width: 100%;
-    margin: 10px 0;
-    transition: 0.2s ease;
-}
-
-.chatLog .messages .message .messageContent {
-    padding: 10px 20px;
-    border-radius: 24px;
-    font-size: 16px;
-    font-weight: 400;
-    display: inline-block;
-    max-width: 50%;
-    width: auto;
-    transition: 0.2s ease;
-}
-
-.chatLog .messages .message.incoming .messageContent {
-    background-color: #5E5652;
-}
-
-.chatLog .messages .message.outgoing {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.chatLog .messages .message.outgoing .messageContent {
-    background-color: #836F48;
-    text-align: right;
-}
-
-.chatLog .messages .message.deleted .messageContent::before {
-    content: "Deleted message";
-}
-
-.chatLog .messages .message.deleted .messageContent {
-    background-color: transparent;
-    border: 2px solid #834848;
-    border-radius: 24px;
-    color: #C07A7A;
-}
-
-.chatLog .messages .message:hover {
-    background-color: rgba(253, 253, 253, 0.01);
+#conversation .chatLog .messages .message {
+    background-color: yellow;
+    display: inline-flex;
+    width: fit-content;
+    padding: 10px;
 }
