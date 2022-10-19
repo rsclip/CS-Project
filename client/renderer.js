@@ -3,6 +3,9 @@
 const connection = require("./js/connection.js");
 const accounts = require("./js/accounts.js");
 const keys = require("./js/keys.js");
+const { transition } = require("./js/transitioner.js");
+const messaging = require("./js/messaging.js");
+
 const io = require("socket.io-client");
 const { webFrame } = require('electron')
 
@@ -18,13 +21,16 @@ let socket = null;
 document.getElementById("connect").addEventListener("click", connect);
 
 function displayPage(page) {
-    // get all pages within the .page class and hide all
-    document.querySelectorAll(".page").forEach(function(el) {
-        el.classList.add("hidden");
-    });
+    transition();
+    setTimeout(() => {
+        // get all pages within the .page class and hide all
+        document.querySelectorAll(".page").forEach(function(el) {
+            el.classList.add("hidden");
+        });
 
-    // unhide the current page id
-    document.getElementById(page).classList.remove("hidden");
+        // unhide the current page id
+        document.getElementById(page).classList.remove("hidden");
+    }, 900);
 }
 
 /**
@@ -244,6 +250,9 @@ document.getElementById("submitLogin").addEventListener("click", function(e) {
 
     // Send payload
     socket.emit("login", payload);
+
+    // disable button
+    document.getElementById("submitLogin").disabled = true;
 });
 
 document.getElementById("submitRegister").addEventListener("click", function(e) {
@@ -273,4 +282,7 @@ document.getElementById("submitRegister").addEventListener("click", function(e) 
 
     // Send payload
     socket.emit("register", payload);
+    
+    // disable button
+    document.getElementById("submitRegister").disabled = true;
 });

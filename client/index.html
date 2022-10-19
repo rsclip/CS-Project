@@ -9,10 +9,13 @@
         <link href="./css/accounts_screen.css" rel="stylesheet">
         <link href="./css/chat_screen.css" rel="stylesheet">
         <link href="./css/styles.css" rel="stylesheet">
+        <link href="./css/transitioner.css" rel="stylesheet">
         <title>Messaging App - Client</title>
     </head>
     <body>
-        <div class="page hidden" id="connection">
+        <div id="transitioner"></div>
+
+        <div class="page" id="connection">
             <h1 class="center">Connect to a server</h1>
             <input id="hostname" type="text" placeholder="Hostname" value="localhost">
             <input id="port" type="text" placeholder="Port" value="8084">
@@ -42,7 +45,7 @@
             <p id="loginError" class="hidden"><span style="font-weight: bold;">Error: </span><span id="loginErrorMsg"></span></span></p>
         </div>
 
-        <div class="page" id="chat">
+        <div class="page hidden" id="chat">
             <div class="accountsBar">
                 <div class="accountInfo">
                     <div class="profilePictureContainer">
@@ -65,154 +68,16 @@
                         <div class="onlineUser">
                             <div class="userDetails">
                                 <div class="profilePictureContainer"><img class="profilePicture" src="./css/imgs/default_pfp.png" alt="Profile Picture"></div>
-                                <div class="username">Username</div>
-                            </div>
-                        </div>
-
-                        <div class="onlineUser">
-                            <div class="userDetails">
-                                <div class="profilePictureContainer"><img class="profilePicture" src="./css/imgs/default_pfp.png" alt="Profile Picture"></div>
-                                <div class="username">Username</div>
-                            </div>
-                        </div>
-
-                        <div class="onlineUser">
-                            <div class="userDetails">
-                                <div class="profilePictureContainer"><img class="profilePicture" src="./css/imgs/default_pfp.png" alt="Profile Picture"></div>
-                                <div class="username">Username</div>
-                            </div>
-                        </div>
-
-                        <div class="onlineUser active">
-                            <div class="userDetails">
-                                <div class="profilePictureContainer"><img class="profilePicture" src="./css/imgs/default_pfp.png" alt="Profile Picture"></div>
-                                <div class="username">Horse</div>
-                            </div>
-                        </div>
-
-                        <div class="onlineUser">
-                            <div class="userDetails">
-                                <div class="profilePictureContainer"><img class="profilePicture" src="./css/imgs/default_pfp.png" alt="Profile Picture"></div>
-                                <div class="username">Username</div>
-                            </div>
-                        </div>
-
-                        <div class="onlineUser">
-                            <div class="userDetails">
-                                <div class="profilePictureContainer"><img class="profilePicture" src="./css/imgs/default_pfp.png" alt="Profile Picture"></div>
-                                <div class="username">Username</div>
-                            </div>
-                        </div>
-
-                        <div class="onlineUser">
-                            <div class="userDetails">
-                                <div class="profilePictureContainer"><img class="profilePicture" src="./css/imgs/default_pfp.png" alt="Profile Picture"></div>
-                                <div class="username">Username</div>
-                            </div>
-                        </div>
-
-                        <div class="onlineUser">
-                            <div class="userDetails">
-                                <div class="profilePictureContainer"><img class="profilePicture" src="./css/imgs/default_pfp.png" alt="Profile Picture"></div>
-                                <div class="username">Username</div>
-                            </div>
-                        </div>
-
-                        <div class="onlineUser">
-                            <div class="userDetails">
-                                <div class="profilePictureContainer"><img class="profilePicture" src="./css/imgs/default_pfp.png" alt="Profile Picture"></div>
-                                <div class="username">Username</div>
-                            </div>
-                        </div>
-
-                        <div class="onlineUser">
-                            <div class="userDetails">
-                                <div class="profilePictureContainer"><img class="profilePicture" src="./css/imgs/default_pfp.png" alt="Profile Picture"></div>
-                                <div class="username">Username</div>
-                            </div>
-                        </div>
-
-                        <div class="onlineUser">
-                            <div class="userDetails">
-                                <div class="profilePictureContainer"><img class="profilePicture" src="./css/imgs/default_pfp.png" alt="Profile Picture"></div>
-                                <div class="username">Username</div>
-                            </div>
-                        </div>
-
-                        <div class="onlineUser">
-                            <div class="userDetails">
-                                <div class="profilePictureContainer"><img class="profilePicture" src="./css/imgs/default_pfp.png" alt="Profile Picture"></div>
-                                <div class="username">Username</div>
-                            </div>
-                        </div>
-
-                        <div class="onlineUser">
-                            <div class="userDetails">
-                                <div class="profilePictureContainer"><img class="profilePicture" src="./css/imgs/default_pfp.png" alt="Profile Picture"></div>
-                                <div class="username">Username1</div>
-                            </div>
-                        </div>
-
-                        <div class="onlineUser">
-                            <div class="userDetails">
-                                <div class="profilePictureContainer"><img class="profilePicture" src="./css/imgs/default_pfp.png" alt="Profile Picture"></div>
                                 <div class="username">Username2</div>
                             </div>
-                        </div>
-
-                        <div class="onlineUser">
-                            <div class="userDetails">
-                                <div class="profilePictureContainer"><img class="profilePicture" src="./css/imgs/default_pfp.png" alt="Profile Picture"></div>
-                                <div class="username">Username3</div>
-                            </div>
-                        </div>
-
-                        <div class="onlineUser">
-                            <div class="userDetails">
-                                <div class="profilePictureContainer"><img class="profilePicture" src="./css/imgs/default_pfp.png" alt="Profile Picture"></div>
-                                <div class="username">Username4</div>
-                            </div>
-                        </div>
-
-                        <div class="onlineUser">
-                            <div class="userDetails">
-                                <div class="profilePictureContainer"><img class="profilePicture" src="./css/imgs/default_pfp.png" alt="Profile Picture"></div>
-                                <div class="username">Username5</div>
-                            </div>
-                        </div>
-
-                        
-                        
+                        </div>                        
                     </div>
                 </div>
     
                 <div class="pane" id="conversation">
                     <h2 class="convoLabel">Your conversation with <span id="currentUser">Username</span></h2>
                     <div class="chatLog">
-                        <div class="messages overlay">
-                            <div class="message outgoing">
-                                <div class="messageContent">A slightly longer example message.</div>
-                            </div>
-                            <div class="message outgoing">
-                                <div class="messageContent">Example message</div>
-                            </div>
-                            <div class="message incoming">
-                                <div class="messageContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac ipsum ante. Nam porta purus sem, ac euismod sapien</div>
-                            </div>
-                            <div class="message outgoing deleted">
-                                <div class="messageContent"></div>
-                            </div>
-                            <div class="message incoming">
-                                <div class="messageContent">A slightly longer example message.</div>
-                            </div>
-                            <div class="message incoming">
-                                <div class="messageContent">Example message</div>
-                            </div>
-                            <div class="message incoming deleted">
-                                <div class="messageContent"></div>
-                            </div>
-
-
+                        <div class="messages overlay" id="messageList">
                         </div>
                         <div class="messageBox">
                             <input id="messageInput" type="text" placeholder="Type a message..." spellcheck="false" maxlength="320">
