@@ -54,7 +54,12 @@
 
             <div class="chatContainer">
                 <div class="pane" id="onlineUsers">
-                    <h4 class="onlineUserLabel">Online users</h4>
+                    <h4 class="onlineUserLabel">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                          </svg>
+                          
+                        Online users</h4>
                     <div id="onlineUsersList">
                         <div class="onlineUser">
                             <div class="userDetails">
@@ -184,63 +189,36 @@
                     <h2 class="convoLabel">Your conversation with <span id="currentUser">Username</span></h2>
                     <div class="chatLog overlayISDIDSABLED========================================">
                         <div class="messages">
-                            <div class="message incoming">
-                                <div class="messageContent">Wee</div>
+                            <div class="message outgoing">
+                                <div class="messageContent">A slightly longer example message.</div>
                             </div>
                             <div class="message outgoing">
-                                <div class="messageContent">woo</div>
-                            </div><div class="message incoming">
-                                <div class="messageContent">Wee</div>
-                            </div>
-                            <div class="message outgoing">
-                                <div class="messageContent">woo</div>
+                                <div class="messageContent">Example message</div>
                             </div>
                             <div class="message incoming">
-                                <div class="messageContent">Wee</div>
+                                <div class="messageContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ac ipsum ante. Nam porta purus sem, ac euismod sapien</div>
                             </div>
-                            <div class="message outgoing">
-                                <div class="messageContent">woo</div>
-                            </div>
-                            <div class="message incoming">
-                                <div class="messageContent">Wee</div>
-                            </div>
-                            <div class="message outgoing">
-                                <div class="messageContent">woo</div>
+                            <div class="message outgoing deleted">
+                                <div class="messageContent"></div>
                             </div>
                             <div class="message incoming">
-                                <div class="messageContent">Wee</div>
-                            </div>
-                            <div class="message outgoing">
-                                <div class="messageContent">woo</div>
+                                <div class="messageContent">A slightly longer example message.</div>
                             </div>
                             <div class="message incoming">
-                                <div class="messageContent">Wee</div>
-                            </div><div class="message outgoing">
-                                <div class="messageContent">woo</div>
+                                <div class="messageContent">Example message</div>
                             </div>
-                            <div class="message incoming">
-                                <div class="messageContent">Wee</div>
-                            </div><div class="message outgoing">
-                                <div class="messageContent">woo</div>
+                            <div class="message incoming deleted">
+                                <div class="messageContent"></div>
                             </div>
-                            <div class="message incoming">
-                                <div class="messageContent">Wee</div>
-                            </div><div class="message outgoing">
-                                <div class="messageContent">woo</div>
-                            </div>
-                            <div class="message incoming">
-                                <div class="messageContent">Wee</div>
-                            </div><div class="message outgoing">
-                                <div class="messageContent">woo</div>
-                            </div>
-                            <div class="message incoming">
-                                <div class="messageContent">Wee</div>
-                            </div>
-
                         </div>
                         <div class="messageBox">
-                            <input id="messageInput" type="text" placeholder="Type a message...">
-                            <button id="sendMessage">Send</button>
+                            <input id="messageInput" type="text" placeholder="Type a message..." spellcheck="false" maxlength="320">
+                            <button id="sendMessage">
+                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                                  </svg>
+                                  
+                                Send</button>
                         </div>
                     </div>
                 </div>

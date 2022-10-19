@@ -76,6 +76,15 @@ img.profilePicture {
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 10px;
+}
+
+#onlineUsers .onlineUserLabel .icon {
+    width: 18px;
+    height: 18px;
 }
 
 #onlineUsersList {
@@ -122,27 +131,6 @@ img.profilePicture {
     font-weight: 400;
 }
 
-#conversation {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    width: 100%;
-}
-
-#conversation .convoLabel {
-    width: 100%;
-    margin: 0;
-    box-sizing: border-box;
-    padding: 10px 20px;
-    font-weight: 400;
-    font-size: 28px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.141);
-}
-
-#currentUser {
-    font-weight: 600;
-}
-
 .overlay {
     position: relative;
 }
@@ -155,31 +143,135 @@ img.profilePicture {
     width: 100%;
 }
 
-#conversation .chatLog {
-    background-color: red;
-    width: 100%;
+#conversation {
+    overflow-y: auto;
+    width: 75%;
     height: 100%;
-    display: grid;
-    grid-template-rows: 1fr 60px;
-}
-
-#conversation .chatLog .messages {
-    background-color: blue;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column-reverse;
-    padding: 10px;
-    box-sizing: border-box;
     max-height: 100%;
 }
 
-#conversation .chatLog .messageBox {
-    background-color: green;
+#conversation .convoLabel {
+    width: 100%;
+    height: 55px;
+    margin: 0;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    font-weight: 400;
+    font-size: 28px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.141);
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+#currentUser {
+    font-weight: 600;
+}
+
+#conversation .chatLog {
+    height: calc(100% - 55px);
+    display: flex;
+    flex-direction: column;
+}
+
+#conversation .chatLog .messages {
+    flex: 10;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 0 25px;
+    box-sizing: border-box;
+    background-color: #4A4542;
+    transition: 0.2s ease;
 }
 
 #conversation .chatLog .messages .message {
-    background-color: yellow;
     display: inline-flex;
+    margin: 5px 0;
+    border-radius: 24px;
     width: fit-content;
-    padding: 10px;
+    max-width: 45%;
+    transition: 0.2s ease;
+}
+
+#conversation .chatLog .messages .message .messageContent {
+    padding: 10px 20px;
+    border-radius: 24px;
+    font-size: 16px;
+    font-weight: 400;
+    display: inline-block;
+    width: auto;
+    transition: 0.2s ease;
+}
+
+#conversation .chatLog .messages .message.incoming {
+    align-self: flex-start;
+}
+
+#conversation .chatLog .messages .message.incoming:not(.deleted) {
+    background-color: #5E5652;
+}
+
+#conversation .chatLog .messages .message.outgoing {
+    align-self: flex-end;
+}
+
+#conversation .chatLog .messages .message.outgoing:not(.deleted) {
+    background-color: #836F48;
+}
+
+#conversation .chatLog .messageBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    flex: 1;
+}
+
+#conversation .chatLog .messages .message.deleted .messageContent::before {
+    content: "Deleted message";
+}
+
+#conversation .chatLog .messages .message.deleted .messageContent {
+    background-color: transparent;
+    border: 2px solid #834848;
+    border-radius: 24px;
+    color: #C07A7A;
+}
+
+#conversation .chatLog .messageBox input {
+    flex: 8;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #5E5652;
+    font-size: 16px;
+}
+
+#conversation .chatLog .messageBox button {
+    flex: 1;
+    margin-left: 10px;
+    background-color: #6557ac;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+#conversation .chatLog .messageBox button:hover {
+    background-color: #7a6cc0;
+}
+
+#conversation .chatLog .messageBox button:active {
+    background-color: #4d3f8a;
+}
+
+#conversation .chatLog .messageBox button:focus {
+    outline: none;
+}
+
+#conversation .chatLog .messageBox button:disabled {
+    background-color: #4d3f8a;
+}
+
+#conversation .chatLog .messageBox button svg {
+    width: 20px;
+    height: 20px;
 }

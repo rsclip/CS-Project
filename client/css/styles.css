@@ -57,6 +57,7 @@ button {
     padding: 10px 20px;
     font-size: 1em;
     transition: 0.2s ease;
+    font-family: 'Inter', sans-serif;
     cursor: pointer;
 }
 
@@ -149,4 +150,26 @@ select:focus {
 
 .page.hidden {
     display: none !important;
+}
+
+/* Scrollbar */
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #494241 #282828;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #282828;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #5e5351;
+    border-radius: 10px;
+    border: 0px none #ffffff;
 }
