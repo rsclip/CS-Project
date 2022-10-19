@@ -191,7 +191,6 @@ img.profilePicture {
     overflow-y: scroll;
     display: flex;
     flex-direction: column-reverse;
-    padding: 0 25px;
     box-sizing: border-box;
     background-color: #4A4542;
     transition: 0.2s ease;
@@ -200,11 +199,11 @@ img.profilePicture {
 
 #conversation .chatLog .messages .message {
     display: inline-flex;
-    margin: 5px 0;
     border-radius: 24px;
     width: fit-content;
     max-width: 45%;
     transition: 0.2s ease;
+    margin: 5px 20px;
 }
 
 #conversation .chatLog .messages .message .messageContent {
