@@ -4,7 +4,9 @@ const connection = require("./js/connection.js");
 const accounts = require("./js/accounts.js");
 const keys = require("./js/keys.js");
 const io = require("socket.io-client");
+const { webFrame } = require('electron')
 
+webFrame.setZoomFactor(1.08);
 
 let isConnected = false;
 const { publicKey, privateKey } = keys.getKeyPairs();

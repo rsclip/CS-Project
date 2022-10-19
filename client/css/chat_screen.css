@@ -47,6 +47,20 @@ img.profilePicture {
     border-radius: 50%;
 }
 
+#logout {
+    background-color: #47443D;
+    padding: 10px 30px;
+    border-radius: 20px;
+    font-size: 18px;
+    position: absolute;
+    right: 10px;
+    top: -10px;
+}
+
+#logout:hover {
+    background-color: #514d44;
+}
+
 #username {
     font-weight: bold;
 }
@@ -181,6 +195,7 @@ img.profilePicture {
     box-sizing: border-box;
     background-color: #4A4542;
     transition: 0.2s ease;
+    transition:all 2s
 }
 
 #conversation .chatLog .messages .message {
@@ -200,6 +215,7 @@ img.profilePicture {
     display: inline-block;
     width: auto;
     transition: 0.2s ease;
+    overflow-wrap: anywhere;
 }
 
 #conversation .chatLog .messages .message.incoming {
