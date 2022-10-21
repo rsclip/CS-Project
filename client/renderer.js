@@ -5,6 +5,7 @@ const accounts = require("./js/accounts.js");
 const keys = require("./js/keys.js");
 const { transition } = require("./js/transitioner.js");
 const messaging = require("./js/messaging.js");
+const userList = require("./js/userList.js");
 
 const io = require("socket.io-client");
 const { webFrame } = require('electron')
