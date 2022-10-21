@@ -13,11 +13,11 @@
 @keyframes transition {
     0% {
         right: 200%;
-        transform: rotate(-25deg);
+        transform: rotate(-15deg);
     }
     100% {
         right: -200%;
-        transform: rotate(25deg);
+        transform: rotate(15deg);
     }
 }
 

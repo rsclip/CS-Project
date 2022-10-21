@@ -13,10 +13,12 @@ const { webFrame } = require('electron')
 webFrame.setZoomFactor(1.08);
 
 let isConnected = false;
+let isAuthenticated = false;
 const { publicKey, privateKey } = keys.getKeyPairs();
 let serverPublicKey = null;
 let MAC = null;
 let socket = null;
+let currentUsername = null;
 
 
 document.getElementById("connect").addEventListener("click", connect);
@@ -148,15 +150,18 @@ async function initiateConnection(hostname, port) {
             console.log(decrypted);
 
             // Check if successful or not
-            // Format: {success: true/false, message: "message"}
+            // Format: {success: true/false, message: "message", username: "optional username"}
             if (decrypted.success) {
-                // if successful, display chat page
+                // if successful, display chat page and update online users
                 console.log("Login successful");
-                displayPage("chat");
+                handleLogin(decrypted.username);
             } else {
                 // if not, display an error
                 console.log("Login failed: ", decrypted.message);
                 accounts.displayError(decrypted.message);
+
+                // reset connection UI
+                resetConnectionUI();
             }
         } catch(err) {
             // if it fails, display an error
@@ -175,15 +180,18 @@ async function initiateConnection(hostname, port) {
             console.log(decrypted);
 
             // Check if successful or not
-            // Format: {success: true/false, message: "message"}
+            // Format: {success: true/false, message: "username"}
             if (decrypted.success) {
-                // if successful, display chat page
+                // if successful, display chat page and update online users
                 console.log("Register successful");
-                displayPage("chat");
+                handleLogin(decrypted.username);
             } else {
                 // if not, display an error
                 console.log("Register failed: ", decrypted.message);
                 accounts.displayError(decrypted.message);
+
+                // reset connection UI
+                resetConnectionUI();
             }
         } catch(err) {
             // if it fails, display an error
@@ -193,14 +201,44 @@ async function initiateConnection(hostname, port) {
         }
     });
 
+    // on onlineUsers event
+    socket.on("onlineUsers", function(data) {
+        console.log("Received online users from server");
+        try {
+            // try to decrypt the data
+            let decrypted = keys.decryptObject(privateKey, data);
+            console.log(decrypted);
+
+            // get users object
+            let users = decrypted.users;
+
+            // update online users
+            userList.displayUsers(users);
+        } catch(err) {
+            console.error("Failed to decrypt online users:", err);
+        }
+    });
+
     // wait until the connection is established and send a message
     await new Promise((resolve, reject) => {
         socket.once("connect", () => {
             console.log("Connected to server!");
+            isConnected = true;
+            isAuthenticated = false;
+            currentUsername = null;
+
+            // ping for online users list every second
+            // only if the user is authenticated
+            setInterval(() => {
+                updateOnlineUserList();
+            }, 1000);
         });
 
         socket.on("disconnect", () => {
             console.log("Disconnected from server");
+            isConnected = false;
+            isAuthenticated = false;
+            currentUsername = null;
             socket.disconnect();
             displayPage("connection");
             resolve();
@@ -211,6 +249,51 @@ async function initiateConnection(hostname, port) {
         connection.displayError(err + "; check your hostname and port.");
         reject();
     });
+}
+
+function updateOnlineUserList() {
+    if (isAuthenticated) {
+        // payload
+        let payload = {
+            MAC: MAC,
+            data: {}
+        };
+
+        // encrypt payload
+        let encrypted = keys.encryptObject(serverPublicKey, payload);
+        console.log("Sending online users list request");
+        socket.emit("onlineUsers", encrypted);
+
+        console.log("Sent onlineUsers request");
+    } else {
+        console.log("Not authenticated, not sending onlineUsers request");
+    }
+}
+
+function resetConnectionUI() {
+    // re-enable all buttons
+    document.getElementById("submitLogin").disabled = false;
+    document.getElementById("submitRegister").disabled = false;
+
+    // reset all input fields
+    document.getElementById("loginUsername").value = "";
+    document.getElementById("loginPassword").value = "";
+    document.getElementById("registerUsername").value = "";
+    document.getElementById("registerPassword").value = "";
+    document.getElementById("registerConfirmPassword").value = "";
+}
+
+function updateUsername(username) {
+    currentUsername = username;
+    document.getElementById("username").innerHTML = username;
+    console.log("Updated username to", username);
+}
+
+function handleLogin(username) {
+    displayPage("chat");
+    isAuthenticated = true;
+    updateUsername(username);
+    updateOnlineUserList();
 }
 
 // ====================== CONNECTIONS END ====================== //

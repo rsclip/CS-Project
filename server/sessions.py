@@ -47,3 +47,29 @@ class SessionManager:
     def deauthenticate(self, sid):
         self.sessions[sid].authenticated = False
         self.sessions[sid].username = None
+    
+    def getUsername(self, sid):
+        return self.sessions[sid].username
+    
+    def getOnlineUsers(self):
+        """Get user list to send to client
+        Structure:
+        {
+            "username": "username",
+            "id": "id",
+        }
+        Authenticated users only.
+        """
+
+        authenticatedUsers = filter(
+            lambda session: session.authenticated,
+            self.sessions.values()
+        )
+
+        return list(map(
+            lambda session: {
+                "username": session.username,
+                "id": session.sid
+            },
+            authenticatedUsers
+        ))

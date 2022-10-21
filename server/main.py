@@ -38,7 +38,7 @@ class Server:
             sendMac             MAC exchange event
             login               Login event
             register            Register event
-            uploadMessage       Upload message event
+            onlineUsers         Online users event (client request or server broadcast)
         """
         self.host = HOST
         self.port = PORT
@@ -55,7 +55,21 @@ class Server:
         self.sio.on("sendPublicKey", self.on_sendPublicKey)
         self.sio.on("login", self.on_login)
         self.sio.on("register", self.on_register)
-        self.sio.on("uploadMessage", self.on_uploadMessage)
+        self.sio.on("onlineUsers", self.on_onlineUsers)
+    
+    @validate_mac
+    def on_onlineUsers(self, sid, data):
+        """When a client requests online users"""
+        logging.info(f"{self.get_session_name(sid)} Client requested online users")
+        # filter out the current user
+        self.send(sid, "onlineUsers", {
+            "users": list(
+                filter(
+                    lambda x: x['username'] != self.sessions.getUsername(sid),
+                    self.sessions.getOnlineUsers()
+                )
+            )
+        })
 
     @validate_mac
     def on_login(self, sid, data):
@@ -68,7 +82,7 @@ class Server:
 
         (MAC validation requires the data to be in this format)
         """
-        logging.info(f"[{sid}] Client sent login request: {data}")
+        logging.info(f"{self.get_session_name(sid)} Client sent login request: {data}")
 
         # Query database for user
         username = data["username"]
@@ -80,16 +94,17 @@ class Server:
             # Account does not exist
             self.send(sid, "login", {
                 "success": False,
-                "message": "Account does not exist"
+                "message": "Invalid credentials"
             })
-            logging.info(f"[{sid}] Account does not exist")
+            logging.info(f"{self.get_session_name(sid)} Account does not exist")
         else:
             # Account exists
             self.send(sid, "login", {
                 "success": True,
-                "message": "Account exists"
+                "message": "Login successful",
+                "username": username
             })
-            logging.info(f"[{sid}] Account exists")
+            logging.info(f"{self.get_session_name(sid)} Account exists")
 
             self.sessions.authenticate(sid, username)
     
@@ -104,7 +119,7 @@ class Server:
 
         (MAC validation requires the data to be in this format)
         """
-        logging.info(f"[{sid}] Client sent register request: {data}")
+        logging.info(f"{self.get_session_name(sid)} Client sent register request: {data}")
 
         # Query to see if username is taken
         username = data["username"]
@@ -116,50 +131,43 @@ class Server:
                 "success": False,
                 "message": "Username is taken"
             })
-            logging.info(f"[{sid}] Username is taken")
+            logging.info(f"{self.get_session_name(sid)} Username is taken")
         else:
             # Username is not taken
             accounts.create_account(username, password)
             self.send(sid, "register", {
                 "success": True,
-                "message": "Account created"
+                "message": "Account created",
+                "username": username
             })
-            logging.info(f"[{sid}] Account created")
+            logging.info(f"{self.get_session_name(sid)} Account created")
 
             self.sessions.authenticate(sid, username)
 
-    @validate_mac
-    def on_uploadMessage(self, sid, data):
-        """When a client sends a message"""
-        logging.info(f"[{sid}] Client sent data: {data}")
-        # Decrypt the message
-        message = self.decrypt(data)
-        logging.info(f"[{sid}] Decrypted message: {message}")
-
     def on_connect(self, sid, environ):
         """When a client connects"""
-        logging.info(f"[{sid}] Client connected")
+        logging.info(f"{self.get_session_name(sid)} Client connected")
         self.sessions.addSession(sid)
 
         # Send the public key to the client
         self.sio.emit("sendPublicKey", self.publicKey.export_key().decode(), room=sid)
-        logging.info(f"[{sid}] Sent public key to client")
+        logging.info(f"{self.get_session_name(sid)} Sent public key to client")
 
     def on_disconnect(self, sid):
         """When a client disconnects"""
-        logging.info(f"[{sid}] Client disconnected")
+        logging.info(f"{self.get_session_name(sid)} Client disconnected")
         self.sessions.removeSession(sid)
     
     def on_sendPublicKey(self, sid, data):
         """When a client sends their public key"""
-        logging.info(f"[{sid}] Client sent public key: {data}")
+        logging.info(f"{self.get_session_name(sid)} Client sent public key: {data}")
         self.sessions.setPublicKey(sid, encryption.load_public_key(data))
 
         # Send the mac to the client
         mac = MAC()
         self.sessions.setMac(sid, mac)
         self.send(sid, "sendMac", mac.get_mac())
-        logging.info(f"[{sid}] Sent MAC to client")
+        logging.info(f"{self.get_session_name(sid)} Sent MAC to client")
     
     def decrypt(self, data: bytes) -> str:
         """Decrypt a message"""
@@ -185,6 +193,16 @@ class Server:
         """Send an event to multiple clients"""
         for sid in sids:
             self.send(sid, event, message)
+    
+    def get_session_name(self, sid):
+        """Logging username of session ID"""
+        try:
+            if self.sessions.isAuthenticated(sid):
+                return f"[{sid}:{self.sessions.getUsername(sid)}]"
+        except:
+            pass
+        
+        return f"[{sid}]"
 
     def run(self):
         """Run the server"""
