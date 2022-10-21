@@ -16,8 +16,6 @@ def validate_mac(func):
             # Decrypt data
             data = json.loads(self.decrypt(data))
 
-            print(data)
-
             # Validate MAC based on SID
             try:
                 expectedMac = self.sessions.getMac(sid)

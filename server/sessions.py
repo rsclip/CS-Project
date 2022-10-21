@@ -51,6 +51,17 @@ class SessionManager:
     def getUsername(self, sid):
         return self.sessions[sid].username
     
+    def isOnline(self, username):
+        users = filter(
+            lambda session: session.authenticated,
+            self.sessions.values()
+        )
+
+        return any(map(
+            lambda session: session.username == username,
+            users
+        ))
+    
     def getOnlineUsers(self):
         """Get user list to send to client
         Structure:

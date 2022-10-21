@@ -60,7 +60,6 @@ class Server:
     @validate_mac
     def on_onlineUsers(self, sid, data):
         """When a client requests online users"""
-        logging.info(f"{self.get_session_name(sid)} Client requested online users")
         # filter out the current user
         self.send(sid, "onlineUsers", {
             "users": list(
@@ -99,6 +98,17 @@ class Server:
             logging.info(f"{self.get_session_name(sid)} Account does not exist")
         else:
             # Account exists
+
+            # Check if user is already online
+            if self.sessions.isOnline(username):
+                self.send(sid, "login", {
+                    "success": False,
+                    "message": "User already logged in"
+                })
+                logging.info(f"{self.get_session_name(sid)} User already online")
+                return
+            
+            # Successfully logged in
             self.send(sid, "login", {
                 "success": True,
                 "message": "Login successful",
