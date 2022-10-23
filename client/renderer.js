@@ -19,6 +19,7 @@ let serverPublicKey = null;
 let MAC = null;
 let socket = null;
 let currentUsername = null;
+let onlineUsers = [];
 
 
 document.getElementById("connect").addEventListener("click", connect);
@@ -210,10 +211,10 @@ async function initiateConnection(hostname, port) {
             console.log(decrypted);
 
             // get users object
-            let users = decrypted.users;
+            onlineUsers = decrypted.users;
 
             // update online users
-            userList.displayUsers(users);
+            userList.displayUsers(onlineUsers);
         } catch(err) {
             console.error("Failed to decrypt online users:", err);
         }
@@ -261,12 +262,7 @@ function updateOnlineUserList() {
 
         // encrypt payload
         let encrypted = keys.encryptObject(serverPublicKey, payload);
-        console.log("Sending online users list request");
         socket.emit("onlineUsers", encrypted);
-
-        console.log("Sent onlineUsers request");
-    } else {
-        console.log("Not authenticated, not sending onlineUsers request");
     }
 }
 
@@ -369,4 +365,31 @@ document.getElementById("submitRegister").addEventListener("click", function(e) 
     
     // disable button
     document.getElementById("submitRegister").disabled = true;
+});
+
+// ====================== ACCOUNTS END ====================== //
+
+// ======================== CHAT ======================== //
+const chat_messageInput = document.getElementById("messageInput");
+const chat_sendMessage = document.getElementById("sendMessage");
+chat_messageInput.addEventListener("keyup", function(e) {
+    if (e.key === "Enter") {
+        sendMessage();
+    }
+});
+
+chat_sendMessage.addEventListener("click", function(e) {
+    sendMessage();
+});
+
+// event delegation for when user is selected
+document.getElementById("userList").addEventListener("click", function(e) {
+    // if div has class onlineUser
+    if (e.target.classList.contains("onlineUser")) {
+        // get ID
+        let id = e.target.id;
+
+        // get username from onlineUsers
+        let username = onlineUsers[id];
+    }
 });
