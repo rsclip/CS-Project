@@ -39,6 +39,7 @@ class Server:
             login               Login event
             register            Register event
             onlineUsers         Online users event (client request or server broadcast)
+            userPublicKey       Client requests another user's public key
         """
         self.host = HOST
         self.port = PORT
@@ -56,18 +57,41 @@ class Server:
         self.sio.on("login", self.on_login)
         self.sio.on("register", self.on_register)
         self.sio.on("onlineUsers", self.on_onlineUsers)
+        self.sio.on("userPublicKey", self.on_userPublicKey)
+    
+    @validate_mac
+    def on_userPublicKey(self, sid, data):
+        """When a client requests another user's public key
+        Request structure:
+        {
+            "username": "username"
+        }"""
+        logging.info(f"{self.get_session_name(sid)} Client requested public key of {data}")
+        
+        # Get the user's public key
+        user = self.sessions.get_by_username(data["username"])
+        
+        if user:
+            self.send(sid, "userPublicKey", {
+                "success": True,
+                "publicKey": user.publicKey.export_key().decode(),
+                "userData": data,
+            })
+        else:
+            self.send(sid, "userPublicKey", {
+                "success": False,
+                "message": "User not found"
+            })
     
     @validate_mac
     def on_onlineUsers(self, sid, data):
         """When a client requests online users"""
-        # filter out the current user
+
         self.send(sid, "onlineUsers", {
-            "users": list(
-                filter(
-                    lambda x: x['username'] != self.sessions.getUsername(sid),
-                    self.sessions.getOnlineUsers()
-                )
-            )
+            "users": list(filter(
+                lambda x: x['username'] != self.sessions.get_username(sid),
+                self.sessions.get_online_users()
+            ))
         })
 
     @validate_mac
@@ -100,7 +124,7 @@ class Server:
             # Account exists
 
             # Check if user is already online
-            if self.sessions.isOnline(username):
+            if self.sessions.is_online(username):
                 self.send(sid, "login", {
                     "success": False,
                     "message": "User already logged in"
@@ -157,7 +181,7 @@ class Server:
     def on_connect(self, sid, environ):
         """When a client connects"""
         logging.info(f"{self.get_session_name(sid)} Client connected")
-        self.sessions.addSession(sid)
+        self.sessions.add_session(sid)
 
         # Send the public key to the client
         self.sio.emit("sendPublicKey", self.publicKey.export_key().decode(), room=sid)
@@ -166,16 +190,16 @@ class Server:
     def on_disconnect(self, sid):
         """When a client disconnects"""
         logging.info(f"{self.get_session_name(sid)} Client disconnected")
-        self.sessions.removeSession(sid)
+        self.sessions.remove_session(sid)
     
     def on_sendPublicKey(self, sid, data):
         """When a client sends their public key"""
         logging.info(f"{self.get_session_name(sid)} Client sent public key: {data}")
-        self.sessions.setPublicKey(sid, encryption.load_public_key(data))
+        self.sessions.set_public_key(sid, encryption.load_public_key(data))
 
         # Send the mac to the client
         mac = MAC()
-        self.sessions.setMac(sid, mac)
+        self.sessions.set_mac(sid, mac)
         self.send(sid, "sendMac", mac.get_mac())
         logging.info(f"{self.get_session_name(sid)} Sent MAC to client")
     
@@ -193,11 +217,11 @@ class Server:
     
     def send(self, sid, event, message: str):
         """Send an event to a client"""
-        self.sio.emit(event, self.encrypt(self.sessions.getPublicKey(sid), message), room=sid)
+        self.sio.emit(event, self.encrypt(self.sessions.get_public_key(sid), message), room=sid)
     
     def broadcast(self, sid, event, message: str):
         """Broadcast an event to all clients"""
-        self.sio.emit(event, self.encrypt(self.sessions.getPublicKey(sid), message))
+        self.sio.emit(event, self.encrypt(self.sessions.get_public_key(sid), message))
     
     def send_multiple(self, sids, event, message: str):
         """Send an event to multiple clients"""
@@ -207,8 +231,8 @@ class Server:
     def get_session_name(self, sid):
         """Logging username of session ID"""
         try:
-            if self.sessions.isAuthenticated(sid):
-                return f"[{sid}:{self.sessions.getUsername(sid)}]"
+            if self.sessions.is_auth(sid):
+                return f"[{sid}:{self.sessions.get_username(sid)}]"
         except:
             pass
         

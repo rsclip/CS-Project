@@ -77,7 +77,6 @@ class MessageList {
 }
 
 const MESSAGES = document.getElementById("messageList");
-let messages = new MessageList();
 
 // Generate a random string of length 16
 function genMessageID() {
@@ -108,4 +107,4 @@ function addMessage(message, msgType) {
 
 // ==== EXPORTS ==== //
 exports.addMessage = addMessage;
-exports.messages = messages;
+exports.MessageList = MessageList;

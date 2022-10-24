@@ -15,6 +15,8 @@ function genUserHTML(user) {
     let container = document.createElement('div');
     container.classList.add('onlineUser');
     container.id = `user_${user.id}`;
+    container.dataset.username = user.username;
+    container.dataset.id = user.id;
 
     let details = document.createElement('div');
     details.classList.add('userDetails');
@@ -57,22 +59,20 @@ function displayUsers(users) {
     //         return 0;
     //     }
     // });
-    console.log("beginning displayUsers with", users);
 
     // Get all current users
     let currentUsers = USERS_LIST.children;
 
-    // log all user ids
+    // get all user ids
     let currentUsersIDs = [];
     for (let i = 0; i < currentUsers.length; i++) {
         currentUsersIDs.push(currentUsers[i].id);
     }
-    console.log(currentUsersIDs);
 
     // Filter out displayed users which are not in the new list
     for (let i = 0; i < currentUsers.length; i++) {
         let user = currentUsers[i];
-        let id = user.id.split('_')[1];
+        let id = user.getAttribute("data-id");
         if (!users.find((user) => user.id === id)) {
             user.remove();
         }
@@ -89,7 +89,4 @@ function displayUsers(users) {
     for (let i = 0; i < currentUsers.length; i++) {
         currentUsersIDs.push(currentUsers[i].id);
     }
-    console.log(currentUsersIDs);
-    
-    console.log("finished displayUsers");
 }

@@ -15,10 +15,11 @@ def validate_mac(func):
         def wrapper(self, sid, data):
             # Decrypt data
             data = json.loads(self.decrypt(data))
+            # print(f"{self.get_session_name(sid)} {func.__name__} raw data: {data}")
 
             # Validate MAC based on SID
             try:
-                expectedMac = self.sessions.getMac(sid)
+                expectedMac = self.sessions.get_mac(sid)
                 providedMac = data["MAC"]
 
                 if expectedMac.validate_mac(providedMac):

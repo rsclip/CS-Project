@@ -13,31 +13,31 @@ class SessionManager:
     def __init__(self):
         self.sessions = {}
 
-    def addSession(self, sid):
+    def add_session(self, sid):
         self.sessions[sid] = Session(sid)
 
-    def removeSession(self, sid):
+    def remove_session(self, sid):
         del self.sessions[sid]
 
-    def getSession(self, sid):
+    def get_session(self, sid):
         return self.sessions[sid]
 
-    def setPublicKey(self, sid, publicKey):
+    def set_public_key(self, sid, publicKey):
         self.sessions[sid].publicKey = publicKey
 
-    def getPublicKey(self, sid):
+    def get_public_key(self, sid):
         return self.sessions[sid].publicKey
 
-    def setMac(self, sid, mac):
+    def set_mac(self, sid, mac):
         self.sessions[sid].mac = mac
     
-    def getMac(self, sid):
+    def get_mac(self, sid):
         return self.sessions[sid].mac
 
-    def getSessions(self):
+    def get_sessions(self):
         return self.sessions
 
-    def isAuthenticated(self, sid):
+    def is_auth(self, sid):
         return self.sessions[sid].authenticated
 
     def authenticate(self, sid, username):
@@ -48,10 +48,10 @@ class SessionManager:
         self.sessions[sid].authenticated = False
         self.sessions[sid].username = None
     
-    def getUsername(self, sid):
+    def get_username(self, sid):
         return self.sessions[sid].username
     
-    def isOnline(self, username):
+    def is_online(self, username):
         users = filter(
             lambda session: session.authenticated,
             self.sessions.values()
@@ -62,7 +62,7 @@ class SessionManager:
             users
         ))
     
-    def getOnlineUsers(self):
+    def get_online_users(self):
         """Get user list to send to client
         Structure:
         {
@@ -84,3 +84,10 @@ class SessionManager:
             },
             authenticatedUsers
         ))
+    
+    def get_by_username(self, username):
+        """Get session by username"""
+        return next(filter(
+            lambda session: session.username == username,
+            self.sessions.values()
+        ), None)

@@ -1,29 +1,47 @@
 'use strict';
 
+const fs = require('fs');
+
 const connection = require("./js/connection.js");
 const accounts = require("./js/accounts.js");
 const keys = require("./js/keys.js");
 const { transition } = require("./js/transitioner.js");
 const messaging = require("./js/messaging.js");
 const userList = require("./js/userList.js");
+const conversations = require("./js/conversations.js");
 
 const io = require("socket.io-client");
 const { webFrame } = require('electron')
 
 webFrame.setZoomFactor(1.08);
 
-let isConnected = false;
-let isAuthenticated = false;
+// Our public & private key
 const { publicKey, privateKey } = keys.getKeyPairs();
-let serverPublicKey = null;
-let MAC = null;
-let socket = null;
+
+// Determines whether a user is connected to a server
+let isConnected = false;
+// Whether the user is authenticated to a server
+let isAuthenticated = false;
+// Current username authenticated as
 let currentUsername = null;
+// Current connected server's public key
+let serverPublicKey = null;
+// Message Authentication Code (MAC) for the current session
+let MAC = null;
+// Socket for the server
+let socket = null;
+
+// A list of all online users
 let onlineUsers = [];
+// A list of messages
+let messageList = new messaging.MessageList();
+// The chat object for a specific conversation
+let chat = new conversations.Chat(messageList);
 
 
 document.getElementById("connect").addEventListener("click", connect);
 
+// Function to display a page
 function displayPage(page) {
     transition();
     setTimeout(() => {
@@ -100,6 +118,8 @@ async function initiateConnection(hostname, port) {
         console.log("decrypted", keys.decrypt(privateKey, data));
     });
 
+
+
     // on sendPublicKey event
     socket.on("sendPublicKey", function(data) {
         console.log("Received public key from server");
@@ -122,6 +142,8 @@ async function initiateConnection(hostname, port) {
     });
 
 
+
+
     // ------- ENCRYPTED EVENTS ------
     // on sendMac event
     socket.on("sendMac", function(data) {
@@ -141,6 +163,8 @@ async function initiateConnection(hostname, port) {
             return;
         }
     });
+
+
 
     // on login event
     socket.on("login", function(data) {
@@ -172,6 +196,8 @@ async function initiateConnection(hostname, port) {
         }
     });
 
+
+
     // on register event
     socket.on("register", function(data) {
         console.log("Received register data from server");
@@ -202,13 +228,13 @@ async function initiateConnection(hostname, port) {
         }
     });
 
+
+
     // on onlineUsers event
     socket.on("onlineUsers", function(data) {
-        console.log("Received online users from server");
         try {
             // try to decrypt the data
             let decrypted = keys.decryptObject(privateKey, data);
-            console.log(decrypted);
 
             // get users object
             onlineUsers = decrypted.users;
@@ -219,6 +245,8 @@ async function initiateConnection(hostname, port) {
             console.error("Failed to decrypt online users:", err);
         }
     });
+
+
 
     // wait until the connection is established and send a message
     await new Promise((resolve, reject) => {
@@ -295,6 +323,8 @@ function handleLogin(username) {
 // ====================== CONNECTIONS END ====================== //
 
 
+
+
 // ======================== ACCOUNTS ======================== //
 document.getElementById("loginTab").addEventListener("click", function() {
     document.getElementById("loginTab").classList.add("active");
@@ -303,12 +333,15 @@ document.getElementById("loginTab").addEventListener("click", function() {
     document.getElementById("register").classList.add("hidden");
 });
 
+
 document.getElementById("registerTab").addEventListener("click", function() {
     document.getElementById("loginTab").classList.remove("active");
     document.getElementById("registerTab").classList.add("active");
     document.getElementById("login").classList.add("hidden");
     document.getElementById("register").classList.remove("hidden");
 });
+
+
 
 document.getElementById("submitLogin").addEventListener("click", function(e) {
     let username = document.getElementById("usernameLogin").value;
@@ -334,6 +367,8 @@ document.getElementById("submitLogin").addEventListener("click", function(e) {
     // disable button
     document.getElementById("submitLogin").disabled = true;
 });
+
+
 
 document.getElementById("submitRegister").addEventListener("click", function(e) {
     let username = document.getElementById("usernameRegister").value;
@@ -369,9 +404,13 @@ document.getElementById("submitRegister").addEventListener("click", function(e) 
 
 // ====================== ACCOUNTS END ====================== //
 
+
+
+
 // ======================== CHAT ======================== //
 const chat_messageInput = document.getElementById("messageInput");
 const chat_sendMessage = document.getElementById("sendMessage");
+
 chat_messageInput.addEventListener("keyup", function(e) {
     if (e.key === "Enter") {
         sendMessage();
@@ -382,14 +421,62 @@ chat_sendMessage.addEventListener("click", function(e) {
     sendMessage();
 });
 
-// event delegation for when user is selected
-document.getElementById("userList").addEventListener("click", function(e) {
-    // if div has class onlineUser
-    if (e.target.classList.contains("onlineUser")) {
-        // get ID
-        let id = e.target.id;
 
-        // get username from onlineUsers
-        let username = onlineUsers[id];
+
+// onClick event for onlineUser
+document.body.addEventListener('click', function (evt) {
+    const el = evt.target;
+    const closest = el.closest('.onlineUser');
+    if (closest.contains(el)) {
+        const username = closest.getAttribute("data-username");
+        const id = closest.getAttribute("data-id");
+        selectUser(username, id);
     }
-});
+}, false);
+
+
+// Called when a user is selected (from the online users list)
+async function selectUser(username, id) {
+    // Get the target's public key
+    let targetPublicKey = await getTargetPublicKey(username, id);
+    console.log("Target public key:", targetPublicKey);
+
+    // Set the target's public key
+    chat.targetPublicKey = targetPublicKey;
+}
+
+
+async function getTargetPublicKey(username, id) {
+    // check if cached
+    const path = `./keys/${username}_${id}.pub`;
+    if (fs.existsSync(path)) {
+        return keys.loadCachedPublicKey(path);
+    } else {
+        // request public key from server
+        let payload = keys.encryptObject(
+            serverPublicKey,
+            {
+                MAC: MAC,
+                data: {
+                    username: username
+                }
+            }
+        );
+
+        socket.emit("userPublicKey", payload);
+        console.log("Requested public key for", username, id);
+
+        // wait for response
+        return new Promise((resolve, reject) => {
+            socket.on("userPublicKey", (data) => {
+                let decrypted = keys.decryptObject(privateKey, data);
+
+                if (decrypted.success) {
+                    resolve(decrypted.publicKey);
+                } else {
+                    reject(`Failed to get public key for ${username}: ${decrypted.message}`);
+                }
+            });
+        });
+    }
+}

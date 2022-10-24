@@ -66,6 +66,10 @@ function genKeyPair() {
     };
 }
 
+function loadCachedPublicKey(name) {
+    return parsePublicKey(fs.readFileSync(keyCacheDir + name + ".pem", "utf8"));
+}
+
 // ==================== EXPORT FUNCTIONS ==================== //
 
 // Get the public and private key pairs by
@@ -126,3 +130,4 @@ exports.decrypt = decrypt;
 exports.parsePublicKey = parsePublicKey;
 exports.encryptObject = encryptObject;
 exports.decryptObject = decryptObject;
+exports.loadCachedPublicKey = loadCachedPublicKey;
