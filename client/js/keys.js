@@ -66,8 +66,22 @@ function genKeyPair() {
     };
 }
 
-function loadCachedPublicKey(name) {
-    return parsePublicKey(fs.readFileSync(keyCacheDir + name + ".pem", "utf8"));
+// Decrypt a chunk using a private key
+function encryptRaw(publicKey, message) {
+    const buffer = Buffer.from(message);
+    const encrypted = crypto.publicEncrypt(publicKey, buffer);
+    console.log("Encrypted chunk ", message, " to ", encrypted, " (", encrypted.toString("base64"), ")");
+    return encrypted.toString("base64");
+}
+
+// Decrypt a chunk using a private key
+function decryptRaw(privateKey, message) {
+    const buffer = Buffer.from(message, "base64");
+    const decrypted = crypto.privateDecrypt({
+        key: privateKey,
+        passphrase: get_passphrase()
+    }, buffer);
+    return decrypted.toString("utf8");
 }
 
 // ==================== EXPORT FUNCTIONS ==================== //
@@ -90,9 +104,25 @@ function getKeyPairs() {
 
 // Encrypt a message using a public key
 function encrypt(publicKey, message) {
-    const buffer = Buffer.from(message);
-    const encrypted = crypto.publicEncrypt(publicKey, buffer);
-    return encrypted.toString("base64");
+    // split message into chunk of 400 bytes
+    const chunkSize = 400;
+    const chunks = [];
+
+    for (let i = 0; i < message.length; i += chunkSize) {
+        chunks.push(message.substr(i, chunkSize));
+    }
+
+    console.log("Encrypting " + chunks.length + " chunks:", chunks);
+
+    // encrypt each chunk and encode base64
+    const encryptedChunks = chunks.map(chunk => {
+        return encryptRaw(publicKey, chunk);
+    });
+
+    console.log("Encrypted chunks:", encryptedChunks);
+
+    // convert to string
+    return JSON.stringify(encryptedChunks);
 }
 
 // Encrypt an object using a public key
@@ -102,12 +132,23 @@ function encryptObject(publicKey, object) {
 
 // Decrypt a message using a private key
 function decrypt(privateKey, message) {
-    const buffer = Buffer.from(message, "base64");
-    const decrypted = crypto.privateDecrypt({
-        key: privateKey,
-        passphrase: get_passphrase()
-    }, buffer);
-    return decrypted.toString("utf8");
+    try {
+        // split message into chunks
+        const chunks = JSON.parse(message);
+
+        console.log("Decrypting " + chunks.length + " chunks:", chunks);
+
+        // decrypt each chunk
+        const decryptedChunks = chunks.map(chunk => {
+            return decryptRaw(privateKey, chunk);
+        });
+
+        // convert to string
+        return decryptedChunks.join("");
+    } catch (e) {
+        console.log("Error decrypting:", e);
+        return null;
+    }
 }
 
 // Decrypt an object using a private key
@@ -118,6 +159,11 @@ function decryptObject(privateKey, object) {
 // Parse a public key from a string
 function parsePublicKey(publicKey) {
     return crypto.createPublicKey(publicKey);
+}
+
+// Load a public key from a file
+function loadCachedPublicKey(name) {
+    return parsePublicKey(fs.readFileSync(keyCacheDir + name + ".pem", "utf8"));
 }
 
 // ========================================================= //

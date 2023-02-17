@@ -39,8 +39,6 @@ let messageList = new messaging.MessageList();
 let chat = new conversations.Chat(messageList);
 
 
-document.getElementById("connect").addEventListener("click", connect);
-
 // Function to display a page
 function displayPage(page) {
     transition();
@@ -54,6 +52,9 @@ function displayPage(page) {
         document.getElementById(page).classList.remove("hidden");
     }, 900);
 }
+
+
+document.getElementById("connect").addEventListener("click", connect);
 
 /**
  * Connect to the server based on

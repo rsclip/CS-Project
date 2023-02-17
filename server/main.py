@@ -4,11 +4,13 @@ import logging
 import base64
 import json
 from hashlib import sha512
+from textwrap import wrap
 
 import sessions
 import encryption
 from mac import MAC, validate_mac
 import accounts
+import errors
 
 # =============== CONSTANTS =============== #
 HOST = "localhost"
@@ -60,6 +62,7 @@ class Server:
         self.sio.on("userPublicKey", self.on_userPublicKey)
     
     @validate_mac
+    @errors.handle_errors
     def on_userPublicKey(self, sid, data):
         """When a client requests another user's public key
         Request structure:
@@ -84,6 +87,7 @@ class Server:
             })
     
     @validate_mac
+    @errors.handle_errors
     def on_onlineUsers(self, sid, data):
         """When a client requests online users"""
 
@@ -95,6 +99,7 @@ class Server:
         })
 
     @validate_mac
+    @errors.handle_errors
     def on_login(self, sid, data):
         """Login request event
         Data parsed will be in the format:
@@ -143,6 +148,7 @@ class Server:
             self.sessions.authenticate(sid, username)
     
     @validate_mac
+    @errors.handle_errors
     def on_register(self, sid, data):
         """Register request event
         Data parsed will be in the format:
@@ -178,6 +184,7 @@ class Server:
 
             self.sessions.authenticate(sid, username)
 
+    @errors.handle_errors
     def on_connect(self, sid, environ):
         """When a client connects"""
         logging.info(f"{self.get_session_name(sid)} Client connected")
@@ -187,11 +194,13 @@ class Server:
         self.sio.emit("sendPublicKey", self.publicKey.export_key().decode(), room=sid)
         logging.info(f"{self.get_session_name(sid)} Sent public key to client")
 
+    @errors.handle_errors
     def on_disconnect(self, sid):
         """When a client disconnects"""
         logging.info(f"{self.get_session_name(sid)} Client disconnected")
         self.sessions.remove_session(sid)
-    
+
+    @errors.handle_errors
     def on_sendPublicKey(self, sid, data):
         """When a client sends their public key"""
         logging.info(f"{self.get_session_name(sid)} Client sent public key: {data}")
@@ -201,19 +210,46 @@ class Server:
         mac = MAC()
         self.sessions.set_mac(sid, mac)
         self.send(sid, "sendMac", mac.get_mac())
-        logging.info(f"{self.get_session_name(sid)} Sent MAC to client")
+        logging.info(f"{self.get_session_name(sid)} Sent MAC to client: {mac.get_mac()}")
     
     def decrypt(self, data: bytes) -> str:
         """Decrypt a message"""
-        msg = encryption.decrypt(self.privateKey, base64.b64decode(data))
-        return msg
+        # Data to json chunks
+        chunks = json.loads(base64.b64decode(data))
+
+        logging.info(f"Decrypting chunks: {chunks}")
     
-    def encrypt(self, publicKey: encryption.RsaKey, message: str) -> bytes:
+        # Decrypt each chunk
+        decrypted = []
+        for chunk in chunks:
+            decrypted.append(encryption.decrypt(
+                self.privateKey, base64.b64decode(chunk)
+            ))
+        
+        logging.info(f"Decrypted message ({len(chunks)} chunks): {decrypted}")
+
+        # Join the chunks
+        return "".join(decrypted)
+    
+    def encrypt(self, publicKey: encryption.RsaKey, message: str) -> str:
         """Encrypt a message"""
+        # Turn into string if dictionary
         if isinstance(message, dict):
             message = json.dumps(message)
         
-        return encryption.encrypt(publicKey, message)
+        # Break into chunks
+        print(f"Message length: {len(message)}")
+        message = wrap(message, 400)
+
+        # Encrypt each chunk
+        encrypted = []
+        for chunk in message:
+            encrypted.append(base64.b64encode(encryption.encrypt(publicKey, chunk)).decode())
+        
+        logging.debug(f"Encrypted message {len(encrypted)} chunks")
+
+        # Return as JSON string
+        return json.dumps(encrypted)
     
     def send(self, sid, event, message: str):
         """Send an event to a client"""

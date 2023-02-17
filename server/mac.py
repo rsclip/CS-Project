@@ -1,44 +1,65 @@
 import uuid
 import logging
 import json
+import base64
+import encryption
 
 def validate_mac(func):
-        """Decorator to validate MAC in an event
+    """Decorator to validate MAC in an event
+    
+    In every MAC-protected event, the data provided in the `data`
+    parameter must be a dictionary with the following structure:
+    {
+        "mac": "MAC",
+        "data": "DATA"
+    }
+    """
+    def wrapper(self, sid, data):
+        # Decrypt data
+        print(f"{self.get_session_name(sid)} {func.__name__} raw data: {type(data)} '{data}'")
+        # Data to json chunks
+        chunks = json.loads(data)
+        chunks = [base64.b64decode(chunk) for chunk in chunks]
+
+        logging.info(f"Decrypting chunks: {chunks}")
+    
+        # Decrypt each chunk
+        decrypted = []
+        for chunk in chunks:
+            decrypted.append(encryption.decrypt(
+                self.privateKey, chunk
+            ))
         
-        In every MAC-protected event, the data provided in the `data`
-        parameter must be a dictionary with the following structure:
-        {
-            "mac": "MAC",
-            "data": "DATA"
-        }
-        """
-        def wrapper(self, sid, data):
-            # Decrypt data
-            data = json.loads(self.decrypt(data))
-            # print(f"{self.get_session_name(sid)} {func.__name__} raw data: {data}")
+        logging.info(f"Decrypted message ({len(chunks)} chunks): {decrypted}")
 
-            # Validate MAC based on SID
-            try:
-                expectedMac = self.sessions.get_mac(sid)
-                providedMac = data["MAC"]
+        # Join the chunks
+        data = "".join(decrypted)
+        print(f"{self.get_session_name(sid)} {func.__name__} decrypted data: {data}")
+        data = json.loads(data)
 
-                if expectedMac.validate_mac(providedMac):
-                    return func(self, sid, data["data"])
-                else:
-                    errorType = "MACInvalid"
-                    errorMsg = f"Invalid MAC (expected '{expectedMac}', got '{providedMac}')"
-            except KeyError:
-                errorType = "MACMissing"
-                errorMsg = "MAC not provided"
 
-            # MAC is invalid
-            logging.error(f"[{sid}] MAC validation failed: {errorMsg}")
-            self.send(sid, "error", {
-                "type": errorType,
-                "message": errorMsg
-            })
+        # Validate MAC based on SID
+        try:
+            expectedMac = self.sessions.get_mac(sid)
+            providedMac = data["MAC"]
 
-        return wrapper
+            if expectedMac.validate_mac(providedMac):
+                return func(self, sid, data["data"])
+            else:
+                errorType = "MACInvalid"
+                errorMsg = f"Invalid MAC (expected '{expectedMac}', got '{providedMac}')"
+        except KeyError:
+            errorType = "MACMissing"
+            errorMsg = "MAC not provided"
+
+        # MAC is invalid
+        logging.error(f"[{sid}] MAC validation failed: {errorMsg}")
+        self.send(sid, "error", {
+            "type": errorType,
+            "message": errorMsg
+        })
+
+    return wrapper
 
 class MAC:
     """Message Authentication Code"""
