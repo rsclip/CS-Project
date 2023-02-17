@@ -271,6 +271,9 @@ async function initiateConnection(hostname, port) {
             } else {
                 // if not add to backlog
                 messaging.addMessageToBacklog(decrypted.from, messageDecrypted);
+
+                // update unread messages
+                userList.addUnreadMessageBadge(decrypted.from);
             }
         } catch(err) {
             console.error("Failed to decrypt messages:", err);
@@ -373,6 +376,7 @@ function handleLogin(username) {
     isAuthenticated = true;
     updateUsername(username);
     updateOnlineUserList();
+    resetConnectionUI();
 }
 
 // ====================== CONNECTIONS END ====================== //
@@ -526,6 +530,9 @@ async function selectUser(username, id) {
 
     // read from backlogs
     messaging.readFromBacklog(messageList, username);
+
+    // clear unread badge
+    userList.removeUnreadMessageBadge(username);
 
     console.log("Selected user", username, id);
 }

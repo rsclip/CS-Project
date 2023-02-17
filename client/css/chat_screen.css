@@ -39,6 +39,24 @@
     background-color: #A0815C;
     border: 1px solid #2E2A29;
     margin-right: 10px;
+    position: relative;
+}
+
+.profilePictureContainer .badge {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #c81616;
+    border: 2px solid #ffb29f;
+    opacity: 0;
+    transition: 0.2s ease;
+}
+
+.profilePictureContainer .badge.active {
+    opacity: 1;
 }
 
 img.profilePicture {
@@ -115,7 +133,7 @@ img.profilePicture {
 }
 
 #onlineUsersList .onlineUser.active {
-    background-color: #4E4946;
+    background-color: #564a46;
     cursor: default;
 }
 

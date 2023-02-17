@@ -1,5 +1,3 @@
-exports.displayUsers = displayUsers;
-
 const USERS_LIST = document.getElementById('onlineUsersList');
 
 // Generate the html for a user
@@ -7,7 +5,10 @@ function genUserHTML(user) {
     /* Structure:
      <div class="onlineUser" id="user_${user.id}">
         <div class="userDetails">
-            <div class="profilePictureContainer"><img class="profilePicture" src="./css/imgs/default_pfp.png" alt="Profile Picture"></div>
+            <div class="profilePictureContainer">
+                <img class="profilePicture" src="./css/imgs/default_pfp.png" alt="Profile Picture">
+                <div class="badge"></div>
+            </div>
             <div class="username">${user.username}</div>
         </div>
     </div>
@@ -33,7 +34,11 @@ function genUserHTML(user) {
     username.classList.add('username');
     username.innerText = user.username;
 
+    let badge = document.createElement('div');
+    badge.classList.add('badge');
+
     pfpContainer.appendChild(pfp);
+    pfpContainer.appendChild(badge);
     details.appendChild(pfpContainer);
     details.appendChild(username);
     container.appendChild(details);
@@ -90,3 +95,23 @@ function displayUsers(users) {
         currentUsersIDs.push(currentUsers[i].id);
     }
 }
+
+
+// add unread message badge to user
+function addUnreadMessageBadge(username) {
+    let user = document.querySelector(`[data-username="${username}"]`);
+    let badge = user.querySelector('.badge');
+    badge.classList.add('active');
+}
+
+// remove unread message badge from user
+function removeUnreadMessageBadge(username) {
+    let user = document.querySelector(`[data-username="${username}"]`);
+    let badge = user.querySelector('.badge');
+    badge.classList.remove('active');
+}
+
+// ======================== EXPORTS ========================
+exports.displayUsers = displayUsers;
+exports.addUnreadMessageBadge = addUnreadMessageBadge;
+exports.removeUnreadMessageBadge = removeUnreadMessageBadge;
