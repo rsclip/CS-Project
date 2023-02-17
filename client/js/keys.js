@@ -70,7 +70,6 @@ function genKeyPair() {
 function encryptRaw(publicKey, message) {
     const buffer = Buffer.from(message);
     const encrypted = crypto.publicEncrypt(publicKey, buffer);
-    console.log("Encrypted chunk ", message, " to ", encrypted, " (", encrypted.toString("base64"), ")");
     return encrypted.toString("base64");
 }
 
@@ -112,14 +111,10 @@ function encrypt(publicKey, message) {
         chunks.push(message.substr(i, chunkSize));
     }
 
-    console.log("Encrypting " + chunks.length + " chunks:", chunks);
-
     // encrypt each chunk and encode base64
     const encryptedChunks = chunks.map(chunk => {
         return encryptRaw(publicKey, chunk);
     });
-
-    console.log("Encrypted chunks:", encryptedChunks);
 
     // convert to string
     return JSON.stringify(encryptedChunks);
@@ -135,8 +130,6 @@ function decrypt(privateKey, message) {
     try {
         // split message into chunks
         const chunks = JSON.parse(message);
-
-        console.log("Decrypting " + chunks.length + " chunks:", chunks);
 
         // decrypt each chunk
         const decryptedChunks = chunks.map(chunk => {

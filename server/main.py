@@ -60,6 +60,41 @@ class Server:
         self.sio.on("register", self.on_register)
         self.sio.on("onlineUsers", self.on_onlineUsers)
         self.sio.on("userPublicKey", self.on_userPublicKey)
+        self.sio.on("message", self.on_message)
+    
+    @validate_mac
+    @errors.handle_errors
+    def on_message(self, sid, data):
+        """When the client sends a message to another user.
+        Request structure: {
+            "message": "message",
+            "username": "username" # target username
+            "id": "id" # target user id
+        }"""
+        logging.info(f"{self.get_session_name(sid)} Client sent message to {data['username']}: {data['message']}")
+
+        # Message payload is already encrypted with the target user's public key
+        # We just need to send it to the target user
+        target = self.sessions.get_by_username(data["username"])
+        currentUser = self.sessions.get_session(sid)
+
+        if target:
+            # send loadMessage event to both users
+            self.send(target.sid, "loadMessage", {
+                "message": data["message"],
+                "from": currentUser.username,
+            })
+
+            self.send(sid, "messageResult", {
+                "success": True,
+                "message": data["message"],
+            })
+        else:
+            # User not found
+            self.send(sid, "messageResult", {
+                "success": False,
+                "message": "User not found"
+            })
     
     @validate_mac
     @errors.handle_errors
@@ -238,15 +273,13 @@ class Server:
             message = json.dumps(message)
         
         # Break into chunks
-        print(f"Message length: {len(message)}")
         message = wrap(message, 400)
 
         # Encrypt each chunk
         encrypted = []
         for chunk in message:
             encrypted.append(base64.b64encode(encryption.encrypt(publicKey, chunk)).decode())
-        
-        logging.debug(f"Encrypted message {len(encrypted)} chunks")
+
 
         # Return as JSON string
         return json.dumps(encrypted)

@@ -16,12 +16,9 @@ def validate_mac(func):
     """
     def wrapper(self, sid, data):
         # Decrypt data
-        print(f"{self.get_session_name(sid)} {func.__name__} raw data: {type(data)} '{data}'")
         # Data to json chunks
         chunks = json.loads(data)
         chunks = [base64.b64decode(chunk) for chunk in chunks]
-
-        logging.info(f"Decrypting chunks: {chunks}")
     
         # Decrypt each chunk
         decrypted = []
@@ -29,12 +26,9 @@ def validate_mac(func):
             decrypted.append(encryption.decrypt(
                 self.privateKey, chunk
             ))
-        
-        logging.info(f"Decrypted message ({len(chunks)} chunks): {decrypted}")
 
         # Join the chunks
         data = "".join(decrypted)
-        print(f"{self.get_session_name(sid)} {func.__name__} decrypted data: {data}")
         data = json.loads(data)
 
 

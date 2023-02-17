@@ -110,7 +110,7 @@ async function initiateConnection(hostname, port) {
 
     // ------ UNENCRYPTED EVENTS ------
     socket.on("error", function(err) {
-        console.log(err);
+        console.error(err);
         connection.displayError(err);
     });
 
@@ -247,6 +247,60 @@ async function initiateConnection(hostname, port) {
         }
     });
 
+
+    // on loadMessage event
+    socket.on("loadMessage", function(data) {
+        try {
+            // try to decrypt the data
+            let decrypted = keys.decryptObject(privateKey, data);
+
+            // get message
+            let message = decrypted.message;
+            
+            // decrypt message using own private key
+            let messageDecrypted = keys.decrypt(privateKey, message);
+
+            // remove start and end quotes
+            messageDecrypted = messageDecrypted.substring(1, messageDecrypted.length - 1);
+
+            console.log("Received message:", messageDecrypted);
+
+            // if sender is current the target user (active chat), add message to chat
+            if (decrypted.from == chat.targetUsername) {
+                messaging.addMessage(messageList, messageDecrypted, "incoming");
+            } else {
+                // if not add to backlog
+                messaging.addMessageToBacklog(decrypted.from, messageDecrypted);
+            }
+        } catch(err) {
+            console.error("Failed to decrypt messages:", err);
+        }
+    });
+
+
+    // on messageResult event
+    socket.on("messageResult", function(data) {
+        try {
+            // try to decrypt the data
+            let decrypted = keys.decryptObject(privateKey, data);
+
+            // get message
+            let message = decrypted.message;
+
+            // decrypt message using own private key
+            let messageDecrypted = keys.decrypt(privateKey, message);
+
+            // remove start and end quotes
+            messageDecrypted = messageDecrypted.substring(1, messageDecrypted.length - 1);
+
+            console.log("Received message result:", messageDecrypted);
+
+            // add message to chat
+            messaging.addMessage(messageList, messageDecrypted, "outgoing");
+        } catch(err) {
+            console.error("Failed to decrypt messages:", err);
+        }
+    });
 
 
     // wait until the connection is established and send a message
@@ -428,10 +482,15 @@ chat_sendMessage.addEventListener("click", function(e) {
 document.body.addEventListener('click', function (evt) {
     const el = evt.target;
     const closest = el.closest('.onlineUser');
-    if (closest.contains(el)) {
-        const username = closest.getAttribute("data-username");
-        const id = closest.getAttribute("data-id");
-        selectUser(username, id);
+    
+    try {
+        if (closest.contains(el)) {
+            const username = closest.getAttribute("data-username");
+            const id = closest.getAttribute("data-id");
+            selectUser(username, id);
+        }
+    } catch (err) {
+        // do nothing
     }
 }, false);
 
@@ -440,10 +499,35 @@ document.body.addEventListener('click', function (evt) {
 async function selectUser(username, id) {
     // Get the target's public key
     let targetPublicKey = await getTargetPublicKey(username, id);
-    console.log("Target public key:", targetPublicKey);
+    console.log("Target public key:");
+    console.log(targetPublicKey);
 
-    // Set the target's public key
-    chat.targetPublicKey = targetPublicKey;
+    // Set the target's data
+    chat.setTarget(keys.parsePublicKey(targetPublicKey), username, id);
+
+    // get the user element clicked on
+    let userElement = document.querySelector(`[data-username="${username}"][data-id="${id}"]`);
+
+    // remove the selected class from all users
+    let onlineUsers = document.getElementsByClassName("onlineUser");
+    for (let i = 0; i < onlineUsers.length; i++) {
+        onlineUsers[i].classList.remove("active");
+    }
+
+    // add the selected class to the user clicked on
+    userElement.classList.add("active");
+
+    // update the chat title
+    document.getElementById("currentUser").innerHTML = username;
+
+    // clear the chat
+    chat.clear();
+    console.log("Cleared chat");
+
+    // read from backlogs
+    messaging.readFromBacklog(messageList, username);
+
+    console.log("Selected user", username, id);
 }
 
 
@@ -480,4 +564,39 @@ async function getTargetPublicKey(username, id) {
             });
         });
     }
+}
+
+
+function sendMessage() {
+    let message = chat_messageInput.value;
+
+    // check if message is empty
+    if (message === "") {
+        return;
+    }
+
+    // encrypt message with target's public key
+    let encrypted = keys.encryptObject(chat.targetPublicKey, message);
+
+    console.log("Encrypted message:", encrypted);
+
+    // send message, encrypted with server's public key
+    let payload = keys.encryptObject(
+        serverPublicKey,
+        {
+            MAC: MAC,
+            data: {
+                message: encrypted,
+                username: chat.targetUsername,
+                id: chat.targetId
+            }
+        }
+    );
+
+    console.log("Sending message to server", payload);
+
+    socket.emit("message", payload);
+
+    // clear input
+    chat_messageInput.value = "";
 }

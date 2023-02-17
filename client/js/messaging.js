@@ -1,5 +1,7 @@
 // Manages messaging systems
 
+let backlog = {};
+
 // Object representing a single message
 class Message {
     constructor(message, type, ID) {
@@ -93,18 +95,39 @@ function genMessageID() {
  * @param {boolean} outgoing - Whether the message is outgoing or not
  * @returns {void}
 **/
-function addMessage(message, msgType) {
-    const msgTypeClass = msgType === "outgoing" ? "outgoing" : "incoming";
+function addMessage(messageList, message, msgType) {
     const msgID = genMessageID();
     console.log(msgID);
 
     let msg = new Message(message, msgType, msgID);
     msg.create();
 
-    messages.addMessage(msg)
+    messageList.addMessage(msg);
     return msgID;
+}
+
+function addMessageToBacklog(fromUsername, message) {
+    if (!backlog[fromUsername]) {
+        backlog[fromUsername] = [];
+    }
+    backlog[fromUsername].push(message);
+}
+
+function readFromBacklog(messageList, fromUsername) {
+    // try to read from backlog
+    if (backlog[fromUsername]) {
+        backlog[fromUsername].forEach((message) => {
+            console.log("Reading from backlog: " + message);
+            addMessage(messageList, message, "incoming");
+        });
+    }
+
+    // clear backlog
+    backlog[fromUsername] = [];
 }
 
 // ==== EXPORTS ==== //
 exports.addMessage = addMessage;
 exports.MessageList = MessageList;
+exports.addMessageToBacklog = addMessageToBacklog;
+exports.readFromBacklog = readFromBacklog;
