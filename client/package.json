@@ -4,19 +4,43 @@
   "description": "CS Project",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "repository": "https://github.com/Cyclip/CS-Project",
   "keywords": [],
   "author": "Ifaz Ahmed",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^21.1.0"
+    "electron": "^21.1.0",
+    "electron-builder": "^23.6.0"
   },
   "content_security_policy": "default-src 'self' style-src 'self' 'unsafe-inline';",
   "dependencies": {
+    "electron-forge": "^5.2.4",
+    "electron-prebuilt-compile": "^8.2.0",
     "socket.io": "^4.5.2",
     "socket.io-client": "^4.5.2",
     "websocket": "^1.0.34"
+  },
+  "build": {
+    "appId": "cyclip.csproject",
+    "productName": "CS Project",
+    "directories": {
+      "output": "build"
+    },
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
   }
 }
