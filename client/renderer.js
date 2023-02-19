@@ -299,7 +299,7 @@ async function initiateConnection(hostname, port) {
             console.log("Received message result:", messageDecrypted);
 
             // add message to chat
-            messaging.addMessage(messageList, messageDecrypted, "outgoing");
+            // messaging.addMessage(messageList, messageDecrypted, "outgoing");
         } catch(err) {
             console.error("Failed to decrypt messages:", err);
         }
@@ -606,4 +606,7 @@ function sendMessage() {
 
     // clear input
     chat_messageInput.value = "";
+
+    // add message to chat
+    messaging.addMessage(messageList, message, "outgoing");
 }
